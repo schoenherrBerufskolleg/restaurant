@@ -1,0 +1,82 @@
+-- Create the Employee table to store information about restaurant employees
+CREATE TABLE Employee (
+    EmployeeID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Password VARCHAR(100) NOT NULL,  -- Store hashed passwords for security
+    Role VARCHAR(20) NOT NULL  -- Employee role (e.g., waiter, cashier)
+);
+
+-- Create the MenuItem table to store the list of MenuItem items
+CREATE TABLE MenuItem (
+    ItemID INTEGER PRIMARY KEY AUTOINCREMENT,
+    ItemName VARCHAR(100) NOT NULL,
+    Description TEXT,
+    Price DECIMAL(10, 2) NOT NULL
+);
+
+-- Create the TableAssignment table to assign tables to employees
+CREATE TABLE TableAssignment (
+    AssignmentID INTEGER PRIMARY KEY AUTOINCREMENT,
+    EmployeeID INTEGER NOT NULL,
+    TableNumber INTEGER NOT NULL,
+    AssignmentDate DATE,
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
+
+-- Create the TableInfo table to store information about restaurant tables
+CREATE TABLE TableInfo (
+    TableNumber INTEGER PRIMARY KEY,
+    Seats INTEGER NOT NULL,
+    Status VARCHAR(20) NOT NULL  -- Table status (e.g., vacant, occupied, reserved)
+);
+
+-- Create the OrderInfo table to store customer orders
+CREATE TABLE OrderInfo (
+    OrderID INTEGER PRIMARY KEY AUTOINCREMENT,
+    TableNumber INTEGER NOT NULL,
+    EmployeeID INTEGER NOT NULL,
+    OrderDate DATETIME NOT NULL,
+    Status VARCHAR(20) NOT NULL,  -- OrderInfo status (e.g., open, closed)
+    FOREIGN KEY (TableNumber) REFERENCES TableInfo(TableNumber),
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
+
+-- Create the OrderItem table to store individual items within an OrderInfo
+CREATE TABLE OrderItem (
+    OrderItemID INTEGER PRIMARY KEY AUTOINCREMENT,
+    OrderID INTEGER NOT NULL,
+    ItemID INTEGER NOT NULL,
+    SpecialInstructions TEXT,  -- Special OrderInfo instructions (e.g., no tomatoes)
+    FOREIGN KEY (OrderID) REFERENCES OrderInfo(OrderID),
+    FOREIGN KEY (ItemID) REFERENCES MenuItem(ItemID)
+);
+
+-- Create the Invoice table to store customer invoices
+CREATE TABLE Invoice (
+    InvoiceID INTEGER PRIMARY KEY AUTOINCREMENT,
+    OrderID INTEGER NOT NULL,
+    TotalAmount DECIMAL(10, 2) NOT NULL,
+    PaidAmount DECIMAL(10, 2),
+    InvoiceDate DATETIME NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES OrderInfo(OrderID)
+);
+
+-- Create the Tip table to store tips received by employees
+CREATE TABLE Tip (
+    TipID INTEGER PRIMARY KEY AUTOINCREMENT,
+    EmployeeID INTEGER NOT NULL,
+    Amount DECIMAL(10, 2) NOT NULL,
+    TipDate DATE NOT NULL,
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
+
+-- Create the DailyTurnover table to store daily turnover information
+CREATE TABLE DailyTurnover (
+    TurnoverID INTEGER PRIMARY KEY AUTOINCREMENT,
+    EmployeeID INTEGER NOT NULL,
+    TotalTurnover DECIMAL(10, 2) NOT NULL,
+    TurnoverDate DATE NOT NULL,
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
