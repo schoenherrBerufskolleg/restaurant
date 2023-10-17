@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "RestaurantApp": {
+      "commandName": "Project"
+    },
+    "Profil \"1\"": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\RestaurantApp\\Class1.cs"
+    }
+  }
+}
