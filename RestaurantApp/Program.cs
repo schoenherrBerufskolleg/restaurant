@@ -12,12 +12,12 @@ namespace WinFormsApp1
         [STAThread]
         static void Main()
         {
-            DatabaseManager manager = new DatabaseManager();
-            manager.Connect();
-            string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Maik\', \'Bösert\', \'Nova Mane\', \'test123\', \'Waiter\')";
-            string query = "SELECT * FROM Employee";
+            //DatabaseManager manager = new DatabaseManager();
+            //manager.Connect();
+            //string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Maik\', \'Bï¿½sert\', \'Nova Mane\', \'test123\', \'Waiter\')";
+            //string query = "SELECT * FROM Employee";
 
-            manager.ExecuteQuery(query);
+            //manager.ExecuteQuery(query);
             //manager.ExecuteCommand(command);
 
             // To customize application configuration such as set high DPI settings or default font,

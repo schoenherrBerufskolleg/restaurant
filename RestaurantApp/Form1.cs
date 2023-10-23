@@ -6,43 +6,14 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using RestaurantApp;
+using System.Data.SQLite;
+using System.Data;
 
 namespace WinFormsApp1
 {
 
-    //public class Employee
-    //{
-    //public int EmployeeID { get; set; }
-    //public string FirstName { get; set; }
-    //public string LastName { get; set; }
-    //public string Username { get; set; }
-    //public string Password { get; set; }
-    //public string Role { get; set; }
-
-    //public List<Dictionary<string, object>> GetTips()
-    //{
-    //// query tips by employeeids
-    //return new List<Dictionary<string, object>>();
-    //}
-
-    //public void AddTip(decimal amount)
-    //{
-    ////resp = save(EmployeeID, amount, Date.today())
-    //}
-
-    //public List<Dictionary<string, object>> GetTurnover(date)
-    //{
-    //// query paid orders by date
-    //return new List<Dictionary<string, object>>();
-    //}
-
-    //public Orders GetOrders()
-    //{
-    //// query for orders status unpaid by employeeid
-    //return new Orders();
-    //}
-    //}
-
+    
     //public class TableAssignment
     //{
     //public int AssignmentID { get; set; }
@@ -149,6 +120,8 @@ namespace WinFormsApp1
     //}
     public partial class Form1 : Form
     {
+
+        DatabaseManager manager = new DatabaseManager();
         public Form1()
         {
             InitializeComponent();
@@ -175,6 +148,9 @@ namespace WinFormsApp1
             panel.Controls.Add(new Label() { Text = "Street, City, State" }, 0, panel.RowCount - 1);
             panel.Controls.Add(new Label() { Text = "888888888888" }, 1, panel.RowCount - 1);
             panel.Controls.Add(new Label() { Text = "xxxxxxx@gmail.com" }, 2, panel.RowCount - 1);
+
+            manager.Connect();
+            //string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Maik\', \'B�sert\', \'Nova Mane\', \'test123\', \'Waiter\')";
         }
 
         private void AssignedToYou_Paint(object sender, PaintEventArgs e)
@@ -197,14 +173,26 @@ namespace WinFormsApp1
             TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
             int width = panel.Size.Width;
             int height = panel.Size.Height;
+            string query = "SELECT * FROM Employee";
+
+            SQLiteDataReader reader = manager.ExecuteQuery(query);
+            int id = 0;
+            string name = "";
+            while (reader.Read())
+            {
+                id = reader.GetInt32(0);
+                name = reader.GetString(1); 
+
+                Console.WriteLine($"ID: {id}, Name: {name}");
+            }
             if (height > 150 && !panel.AutoScroll)
             {
                 panel.AutoScroll = true;
 }
                 panel.RowCount = panel.RowCount + 1;
             panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            panel.Controls.Add(new Label() { Text = height.ToString() }, 0, panel.RowCount);
-            panel.Controls.Add(new Label() { Text = width.ToString() }, 1, panel.RowCount);
+            panel.Controls.Add(new Label() { Text = id.ToString() }, 0, panel.RowCount);
+            panel.Controls.Add(new Label() { Text = name }, 1, panel.RowCount);
             this.TipsTable = panel;
         }
 

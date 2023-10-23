@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F1FMWBNOe/i0/bwBxNfuIX/yL00ci49KG/Y83jmTzpqVHZwJThaB/tQEGK0FBeOSEYkk7w7ScwNJG3zAUm3yOw==",
+  "dgSpecHash": "HrngNWbsUGUT+eFnIuuFzvsBU5XceDm94S8aB12/dKzzJC08iivTCeSFit6bYQ51Juwllo791I8yhNJzNOaPxw==",
   "success": true,
-  "projectFilePath": "H:\\repo\\restaurant\\fromGit\\RestaurantApp\\RestaurantApp.csproj",
+  "projectFilePath": "H:\\repo\\GitHub\\restaurant\\RestaurantApp\\RestaurantApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bschönherr\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Bschönherr\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
