@@ -9,7 +9,8 @@ namespace RestaurantApp
 {
      class DatabaseManager
     {
-        readonly string databasePath = "Data Source=C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\Sql\\Restaurant";
+        //readonly string databasePath = "Data Source=C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\Sql\\Restaurant";
+        readonly string databasePath = "Data Source=H:\\repo\\restaurant\\fromGit\\Sql\\Restaurant";
         SQLiteConnection conn;
 
         public void Connect()
@@ -30,18 +31,19 @@ namespace RestaurantApp
             Console.WriteLine("Amount of columns affected: " + cmd.ExecuteNonQuery());
         }
 
-        public void ExecuteQuery(string query)
+        public SQLiteDataReader ExecuteQuery(string query)
         {
             SQLiteCommand cmd = conn.CreateCommand();
             cmd.CommandText = query;
             SQLiteDataReader reader = cmd.ExecuteReader();   
-            while(reader.Read())
-            {
-                int id = reader.GetInt32(0);
-                string name = reader.GetString(1); 
+            return reader;
+            //while(reader.Read())
+            //{
+                //int id = reader.GetInt32(0);
+                //string name = reader.GetString(1); 
 
-                Console.WriteLine($"ID: {id}, Name: {name}");
-            }
+                //Console.WriteLine($"ID: {id}, Name: {name}");
+            //}
         }
     }
 }

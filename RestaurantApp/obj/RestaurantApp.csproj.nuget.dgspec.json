@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\RestaurantApp\\RestaurantApp.csproj": {}
+    "H:\\repo\\restaurant\\fromGit\\RestaurantApp\\RestaurantApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\RestaurantApp\\RestaurantApp.csproj": {
+    "H:\\repo\\restaurant\\fromGit\\RestaurantApp\\RestaurantApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\RestaurantApp\\RestaurantApp.csproj",
+        "projectUniqueName": "H:\\repo\\restaurant\\fromGit\\RestaurantApp\\RestaurantApp.csproj",
         "projectName": "RestaurantApp",
-        "projectPath": "C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\RestaurantApp\\RestaurantApp.csproj",
-        "packagesPath": "C:\\Users\\MBösert\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\RestaurantApp\\obj\\",
+        "projectPath": "H:\\repo\\restaurant\\fromGit\\RestaurantApp\\RestaurantApp.csproj",
+        "packagesPath": "C:\\Users\\Bschönherr\\.nuget\\packages\\",
+        "outputPath": "H:\\repo\\restaurant\\fromGit\\RestaurantApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\MBösert\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Bschönherr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

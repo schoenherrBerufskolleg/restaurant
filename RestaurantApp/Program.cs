@@ -1,4 +1,6 @@
 using RestaurantApp;
+using System.Data.SQLite;
+using System.Data;
 
 namespace WinFormsApp1
 {
@@ -14,6 +16,7 @@ namespace WinFormsApp1
             manager.Connect();
             string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Maik\', \'Bösert\', \'Nova Mane\', \'test123\', \'Waiter\')";
             string query = "SELECT * FROM Employee";
+
             manager.ExecuteQuery(query);
             //manager.ExecuteCommand(command);
 
