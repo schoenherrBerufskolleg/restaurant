@@ -30,20 +30,21 @@
         {
             tabControl1 = new TabControl();
             Tableview = new TabPage();
-            Tipsview = new TabPage();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            label1 = new Label();
-            label2 = new Label();
-            tableLayoutPanel3 = new TableLayoutPanel();
-            textBox1 = new TextBox();
-            label3 = new Label();
-            label4 = new Label();
-            tableLayoutPanel4 = new TableLayoutPanel();
             label5 = new Label();
+            AssignedToOthers = new TableLayoutPanel();
+            label2 = new Label();
+            label1 = new Label();
+            FreeTable = new TableLayoutPanel();
+            AssignedToYou = new TableLayoutPanel();
+            Tipsview = new TabPage();
+            button1 = new Button();
+            label4 = new Label();
+            label3 = new Label();
+            AddTip = new TextBox();
+            TipsTable = new TableLayoutPanel();
             Turnover = new TabPage();
-            tableLayoutPanel5 = new TableLayoutPanel();
             label6 = new Label();
+            tableLayoutPanel5 = new TableLayoutPanel();
             tabControl1.SuspendLayout();
             Tableview.SuspendLayout();
             Tipsview.SuspendLayout();
@@ -64,11 +65,11 @@
             // Tableview
             // 
             Tableview.Controls.Add(label5);
-            Tableview.Controls.Add(tableLayoutPanel4);
+            Tableview.Controls.Add(AssignedToOthers);
             Tableview.Controls.Add(label2);
             Tableview.Controls.Add(label1);
-            Tableview.Controls.Add(tableLayoutPanel2);
-            Tableview.Controls.Add(tableLayoutPanel1);
+            Tableview.Controls.Add(FreeTable);
+            Tableview.Controls.Add(AssignedToYou);
             Tableview.Location = new Point(4, 24);
             Tableview.Name = "Tableview";
             Tableview.Padding = new Padding(3);
@@ -77,54 +78,27 @@
             Tableview.Text = "Tableview";
             Tableview.UseVisualStyleBackColor = true;
             // 
-            // Tipsview
+            // label5
             // 
-            Tipsview.Controls.Add(label4);
-            Tipsview.Controls.Add(label3);
-            Tipsview.Controls.Add(textBox1);
-            Tipsview.Controls.Add(tableLayoutPanel3);
-            Tipsview.Location = new Point(4, 24);
-            Tipsview.Name = "Tipsview";
-            Tipsview.Padding = new Padding(3);
-            Tipsview.Size = new Size(793, 421);
-            Tipsview.TabIndex = 1;
-            Tipsview.Text = "Tipsview";
-            Tipsview.UseVisualStyleBackColor = true;
+            label5.AutoSize = true;
+            label5.Location = new Point(48, 280);
+            label5.Name = "label5";
+            label5.Size = new Size(105, 15);
+            label5.TabIndex = 5;
+            label5.Text = "Assigned to others";
             // 
-            // tableLayoutPanel1
+            // AssignedToOthers
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Location = new Point(48, 60);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(690, 72);
-            tableLayoutPanel1.TabIndex = 0;
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Location = new Point(48, 181);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 2;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50.60241F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 49.39759F));
-            tableLayoutPanel2.Size = new Size(690, 83);
-            tableLayoutPanel2.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(48, 27);
-            label1.Name = "label1";
-            label1.Size = new Size(92, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Assigned to you";
+            AssignedToOthers.ColumnCount = 2;
+            AssignedToOthers.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            AssignedToOthers.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            AssignedToOthers.Location = new Point(48, 307);
+            AssignedToOthers.Name = "AssignedToOthers";
+            AssignedToOthers.RowCount = 2;
+            AssignedToOthers.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            AssignedToOthers.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            AssignedToOthers.Size = new Size(690, 89);
+            AssignedToOthers.TabIndex = 4;
             // 
             // label2
             // 
@@ -135,34 +109,67 @@
             label2.TabIndex = 3;
             label2.Text = "Free Tables";
             // 
-            // tableLayoutPanel3
+            // label1
             // 
-            tableLayoutPanel3.ColumnCount = 2;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Location = new Point(31, 130);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new Size(732, 272);
-            tableLayoutPanel3.TabIndex = 0;
+            label1.AutoSize = true;
+            label1.Location = new Point(48, 27);
+            label1.Name = "label1";
+            label1.Size = new Size(92, 15);
+            label1.TabIndex = 2;
+            label1.Text = "Assigned to you";
             // 
-            // textBox1
+            // FreeTable
             // 
-            textBox1.Location = new Point(31, 45);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 1;
+            FreeTable.ColumnCount = 2;
+            FreeTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            FreeTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            FreeTable.Location = new Point(48, 181);
+            FreeTable.Name = "FreeTable";
+            FreeTable.RowCount = 2;
+            FreeTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50.60241F));
+            FreeTable.RowStyles.Add(new RowStyle(SizeType.Percent, 49.39759F));
+            FreeTable.Size = new Size(690, 83);
+            FreeTable.TabIndex = 1;
             // 
-            // label3
+            // AssignedToYou
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(31, 17);
-            label3.Name = "label3";
-            label3.Size = new Size(70, 15);
-            label3.TabIndex = 2;
-            label3.Text = "Tip Amount";
+            AssignedToYou.ColumnCount = 3;
+            AssignedToYou.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.2781067F));
+            AssignedToYou.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 62.7218933F));
+            AssignedToYou.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 182F));
+            AssignedToYou.Location = new Point(48, 60);
+            AssignedToYou.Name = "AssignedToYou";
+            AssignedToYou.RowCount = 1;
+            AssignedToYou.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            AssignedToYou.Size = new Size(690, 91);
+            AssignedToYou.TabIndex = 0;
+            AssignedToYou.Paint += AssignedToYou_Paint;
+            // 
+            // Tipsview
+            // 
+            Tipsview.Controls.Add(button1);
+            Tipsview.Controls.Add(label4);
+            Tipsview.Controls.Add(label3);
+            Tipsview.Controls.Add(AddTip);
+            Tipsview.Controls.Add(TipsTable);
+            Tipsview.Location = new Point(4, 24);
+            Tipsview.Name = "Tipsview";
+            Tipsview.Padding = new Padding(3);
+            Tipsview.Size = new Size(793, 421);
+            Tipsview.TabIndex = 1;
+            Tipsview.Text = "Tipsview";
+            Tipsview.UseVisualStyleBackColor = true;
+            Tipsview.Click += Tipsview_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(160, 45);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 4;
+            button1.Text = "Add";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // label4
             // 
@@ -173,27 +180,39 @@
             label4.TabIndex = 3;
             label4.Text = "Recent Tips";
             // 
-            // tableLayoutPanel4
+            // label3
             // 
-            tableLayoutPanel4.ColumnCount = 2;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Location = new Point(48, 307);
-            tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.RowCount = 2;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Size = new Size(690, 89);
-            tableLayoutPanel4.TabIndex = 4;
+            label3.AutoSize = true;
+            label3.Location = new Point(31, 17);
+            label3.Name = "label3";
+            label3.Size = new Size(70, 15);
+            label3.TabIndex = 2;
+            label3.Text = "Tip Amount";
             // 
-            // label5
+            // AddTip
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(48, 280);
-            label5.Name = "label5";
-            label5.Size = new Size(105, 15);
-            label5.TabIndex = 5;
-            label5.Text = "Assigned to others";
+            AddTip.Location = new Point(31, 45);
+            AddTip.Name = "AddTip";
+            AddTip.Size = new Size(100, 23);
+            AddTip.TabIndex = 1;
+            // 
+            // TipsTable
+            // 
+            TipsTable.AutoScroll = true;
+            TipsTable.AutoScrollMinSize = new Size(800, 150);
+            TipsTable.AutoSize = true;
+            TipsTable.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            TipsTable.ColumnCount = 2;
+            TipsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TipsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TipsTable.Location = new Point(31, 130);
+            TipsTable.MaximumSize = new Size(700, 150);
+            TipsTable.Name = "TipsTable";
+            TipsTable.RowCount = 1;
+            TipsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TipsTable.Size = new Size(700, 50);
+            TipsTable.TabIndex = 0;
+            TipsTable.Paint += TipsTable_Paint;
             // 
             // Turnover
             // 
@@ -205,6 +224,15 @@
             Turnover.TabIndex = 2;
             Turnover.Text = "Turnover";
             Turnover.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(26, 28);
+            label6.Name = "label6";
+            label6.Size = new Size(96, 15);
+            label6.TabIndex = 1;
+            label6.Text = "Turnover by date";
             // 
             // tableLayoutPanel5
             // 
@@ -218,15 +246,6 @@
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel5.Size = new Size(743, 348);
             tableLayoutPanel5.TabIndex = 0;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(26, 28);
-            label6.Name = "label6";
-            label6.Size = new Size(96, 15);
-            label6.TabIndex = 1;
-            label6.Text = "Turnover by date";
             // 
             // Form1
             // 
@@ -251,18 +270,19 @@
         private TabControl tabControl1;
         private TabPage Tableview;
         private TabPage Tipsview;
-        private TableLayoutPanel tableLayoutPanel2;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel FreeTable;
+        private TableLayoutPanel AssignedToYou;
         private Label label2;
         private Label label1;
-        private TableLayoutPanel tableLayoutPanel3;
+        private TableLayoutPanel TipsTable;
         private Label label4;
         private Label label3;
-        private TextBox textBox1;
+        private TextBox AddTip;
         private Label label5;
-        private TableLayoutPanel tableLayoutPanel4;
+        private TableLayoutPanel AssignedToOthers;
         private TabPage Turnover;
         private Label label6;
         private TableLayoutPanel tableLayoutPanel5;
+        private Button button1;
     }
 }

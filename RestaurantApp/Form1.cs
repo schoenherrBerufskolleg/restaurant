@@ -1,5 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 
 namespace WinFormsApp1
 {
@@ -146,6 +152,70 @@ namespace WinFormsApp1
         public Form1()
         {
             InitializeComponent();
+            TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
+            panel.MaximumSize = new Size(700, 300);
+            panel.AutoScroll = false;
+            panel.AutoSize = true;
+            panel.RowCount = 0;
+            panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            panel.Controls.Add(new Label() { Text = "Amount" }, 0, 0);
+            panel.Controls.Add(new Label() { Text = "Date" }, 1, 0);
+            this.TipsTable = panel;
+
+            panel = (TableLayoutPanel)this.AssignedToYou;
+            panel.RowCount = 1;
+            panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            panel.Controls.Add(new Label() { Text = "Tablenumber" }, 0, 0);
+            panel.Controls.Add(new Label() { Text = "Contact No" }, 1, 0);
+            panel.Controls.Add(new Label() { Text = "Email ID" }, 2, 0);
+            this.AssignedToYou = panel;
+
+            panel.RowCount = panel.RowCount + 1;
+            panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            panel.Controls.Add(new Label() { Text = "Street, City, State" }, 0, panel.RowCount - 1);
+            panel.Controls.Add(new Label() { Text = "888888888888" }, 1, panel.RowCount - 1);
+            panel.Controls.Add(new Label() { Text = "xxxxxxx@gmail.com" }, 2, panel.RowCount - 1);
+        }
+
+        private void AssignedToYou_Paint(object sender, PaintEventArgs e)
+        {
+            //TableLayoutPanel panel = (TableLayoutPanel)this.AssignedToYou;
+            //panel.ColumnCount = 3;
+            //panel.RowCount = 1;
+            //panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            //panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            ////////panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            //panel.Controls.Add(new Label() { Text = "Address" }, 1, 0);
+            //panel.Controls.Add(new Label() { Text = "Contact No" }, 2, 0);
+            //panel.Controls.Add(new Label() { Text = "Email ID" }, 3, 0);
+            //this.AssignedToYou = panel;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string text = this.AddTip.Text;
+            TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
+            int width = panel.Size.Width;
+            int height = panel.Size.Height;
+            if (height > 150 && !panel.AutoScroll)
+            {
+                panel.AutoScroll = true;
+}
+                panel.RowCount = panel.RowCount + 1;
+            panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            panel.Controls.Add(new Label() { Text = height.ToString() }, 0, panel.RowCount);
+            panel.Controls.Add(new Label() { Text = width.ToString() }, 1, panel.RowCount);
+            this.TipsTable = panel;
+        }
+
+        private void TipsTable_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Tipsview_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
