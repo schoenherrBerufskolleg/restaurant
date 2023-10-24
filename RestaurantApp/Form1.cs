@@ -8,12 +8,43 @@ using System.Linq;
 using System.Text;
 using RestaurantApp;
 using System.Data.SQLite;
-using System.Data;
 
 namespace WinFormsApp1
 {
 
-    
+    //public class Employee
+    //{
+    //public int EmployeeID { get; set; }
+    //public string FirstName { get; set; }
+    //public string LastName { get; set; }
+    //public string Username { get; set; }
+    //public string Password { get; set; }
+    //public string Role { get; set; }
+
+    //public List<Dictionary<string, object>> GetTips()
+    //{
+    //// query tips by employeeids
+    //return new List<Dictionary<string, object>>();
+    //}
+
+    //public void AddTip(decimal amount)
+    //{
+    ////resp = save(EmployeeID, amount, Date.today())
+    //}
+
+    //public List<Dictionary<string, object>> GetTurnover(date)
+    //{
+    //// query paid orders by date
+    //return new List<Dictionary<string, object>>();
+    //}
+
+    //public Orders GetOrders()
+    //{
+    //// query for orders status unpaid by employeeid
+    //return new Orders();
+    //}
+    //}
+
     //public class TableAssignment
     //{
     //public int AssignmentID { get; set; }
@@ -125,17 +156,19 @@ namespace WinFormsApp1
         public Form1()
         {
             InitializeComponent();
-            TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
-            panel.MaximumSize = new Size(700, 300);
-            panel.AutoScroll = false;
-            panel.AutoSize = true;
-            panel.RowCount = 0;
-            panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            panel.Controls.Add(new Label() { Text = "Amount" }, 0, 0);
-            panel.Controls.Add(new Label() { Text = "Date" }, 1, 0);
-            this.TipsTable = panel;
+            Tabelle tipsTable = new Tabelle(this.TipsTable);
+            tipsTable.initTable();
+            //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
+            //panel.MaximumSize = new Size(700, 300);
+            //panel.AutoScroll = false;
+            //panel.AutoSize = true;
+            //panel.RowCount = 0;
+            //panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            //panel.Controls.Add(new Label() { Text = "Amount" }, 0, 0);
+            //panel.Controls.Add(new Label() { Text = "Date" }, 1, 0);
+            //this.TipsTable = panel;
 
-            panel = (TableLayoutPanel)this.AssignedToYou;
+            TableLayoutPanel panel = (TableLayoutPanel)this.AssignedToYou;
             panel.RowCount = 1;
             panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
             panel.Controls.Add(new Label() { Text = "Tablenumber" }, 0, 0);
@@ -169,31 +202,30 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string text = this.AddTip.Text;
-            TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
-            int width = panel.Size.Width;
-            int height = panel.Size.Height;
-            string query = "SELECT * FROM Employee";
-
-            SQLiteDataReader reader = manager.ExecuteQuery(query);
-            int id = 0;
-            string name = "";
-            while (reader.Read())
+            decimal amount;
+            try
             {
-                id = reader.GetInt32(0);
-                name = reader.GetString(1); 
-
-                Console.WriteLine($"ID: {id}, Name: {name}");
+                amount = Int32.Parse(this.AddTip.Text);
             }
-            if (height > 150 && !panel.AutoScroll)
+            catch
             {
-                panel.AutoScroll = true;
-}
-                panel.RowCount = panel.RowCount + 1;
-            panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            panel.Controls.Add(new Label() { Text = id.ToString() }, 0, panel.RowCount);
-            panel.Controls.Add(new Label() { Text = name }, 1, panel.RowCount);
-            this.TipsTable = panel;
+                Console.WriteLine("Es gab einen Error...");
+                return;
+            }
+
+            //string query = "SELECT * FROM Employee WHERE Employee";
+
+            //SQLiteDataReader reader = manager.ExecuteQuery(query);
+
+            Tabelle tipsTable = new Tabelle(this.TipsTable);
+            TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
+            DateTime date = DateTime.Now;
+            tipsTable.addRow(amount, date);
+            //panel.RowCount = panel.RowCount + 1;
+            //panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            //panel.Controls.Add(new Label() { Text = id.ToString() }, 0, panel.RowCount);
+            //panel.Controls.Add(new Label() { Text = name }, 1, panel.RowCount);
+            //this.TipsTable = panel;
         }
 
         private void TipsTable_Paint(object sender, PaintEventArgs e)
