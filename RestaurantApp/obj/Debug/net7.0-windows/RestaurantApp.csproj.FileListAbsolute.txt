@@ -110,3 +110,4 @@ H:\repo\restaurant\fromGit\RestaurantApp\obj\Debug\net7.0-windows\refint\Restaur
 H:\repo\restaurant\fromGit\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.pdb
 H:\repo\restaurant\fromGit\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.genruntimeconfig.cache
 H:\repo\restaurant\fromGit\RestaurantApp\obj\Debug\net7.0-windows\ref\RestaurantApp.dll
+C:\Users\MBösert\Desktop\projekt\restaurant-main\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.Form2.resources
