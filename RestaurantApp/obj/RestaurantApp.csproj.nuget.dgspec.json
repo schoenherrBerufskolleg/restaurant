@@ -1,23 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "H:\\repo\\GitHub\\restaurant\\RestaurantApp\\RestaurantApp.csproj": {}
+    "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj": {}
   },
   "projects": {
-    "H:\\repo\\GitHub\\restaurant\\RestaurantApp\\RestaurantApp.csproj": {
+    "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\repo\\GitHub\\restaurant\\RestaurantApp\\RestaurantApp.csproj",
+        "projectUniqueName": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj",
         "projectName": "RestaurantApp",
-        "projectPath": "H:\\repo\\GitHub\\restaurant\\RestaurantApp\\RestaurantApp.csproj",
-        "packagesPath": "C:\\Users\\Bschönherr\\.nuget\\packages\\",
-        "outputPath": "H:\\repo\\GitHub\\restaurant\\RestaurantApp\\obj\\",
+        "projectPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj",
+        "packagesPath": "C:\\Users\\Megaport\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Users\\Megaport\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Bschönherr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Megaport\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Megaport\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -68,7 +70,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
