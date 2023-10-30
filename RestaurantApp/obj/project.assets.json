@@ -1222,11 +1222,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj",
+      "projectUniqueName": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\RestaurantApp\\RestaurantApp.csproj",
       "projectName": "RestaurantApp",
-      "projectPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj",
+      "projectPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\RestaurantApp\\RestaurantApp.csproj",
       "packagesPath": "C:\\Users\\Megaport\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\obj\\",
+      "outputPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\RestaurantApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Users\\Megaport\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
@@ -1288,13 +1288,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

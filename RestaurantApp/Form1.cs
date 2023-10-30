@@ -151,13 +151,21 @@ namespace WinFormsApp1
     //}
     public partial class Form1 : Form
     {
-
+        public Employee user;
         DatabaseManager manager = new DatabaseManager();
         public Form1(Employee user)
         {
+            this.user = user;
             InitializeComponent();
+            List<(decimal, DateTime)> old_tips = user.GetTips();
             Tabelle tipsTable = new Tabelle(this.TipsTable);
             tipsTable.initTable();
+            foreach((decimal, DateTime) old_tip in old_tips)
+            {
+                tipsTable.addTipRow(old_tip.Item1, old_tip.Item2);
+                //DateTime date = DateTime.Now;
+                //tipsTable.addTipRow(0, date);
+            }
             //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
             //panel.MaximumSize = new Size(700, 300);
             //panel.AutoScroll = false;
@@ -215,12 +223,13 @@ namespace WinFormsApp1
 
             //string query = "SELECT * FROM Employee WHERE Employee";
 
-            //SQLiteDataReader reader = manager.ExecuteQuery(query);
+            //SQLiteDataRTipeader reader = manager.ExecuteQuery(query);
 
             Tabelle tipsTable = new Tabelle(this.TipsTable);
             TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
             DateTime date = DateTime.Now;
-            tipsTable.addRow(amount, date);
+            tipsTable.addTipRow(amount, date);
+            user.AddTip(amount, date);
             //panel.RowCount = panel.RowCount + 1;
             //panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             //panel.Controls.Add(new Label() { Text = id.ToString() }, 0, panel.RowCount);

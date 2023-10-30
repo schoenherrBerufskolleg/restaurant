@@ -30,7 +30,7 @@ public class Tabelle
         panel.Controls.Add(new Label() { Text = "Date" }, 1, 0);
     }
 
-    public void addRow(decimal amount, DateTime date) {
+    public void addTipRow(decimal amount, DateTime date) {
         //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
         TableLayoutPanel panel = this.Table;
         int width = panel.Size.Width;

@@ -16,7 +16,7 @@ public class Employee
     public string LastName { get; set; }
     public string Username { get; set; }
     public string Role { get; set; }
-    private DatabaseManager Manager;
+    private DatabaseManager Manager { get; set; }
 
     public Employee(int EmployeeID, string FirstName, string LastName, string Username, string Role)
     {
@@ -25,20 +25,21 @@ public class Employee
         this.LastName = LastName;
         this.Username = Username;
         this.Role = Role;
-        this.Manager = null;
+        this.Manager = new DatabaseManager();
+        this.Manager.Connect();
     }
 
-    private List<(decimal, DateTime)> GetTips(DatabaseManager Manager)
+    public List<(decimal, DateTime)> GetTips()
     {
-        string query = $"SELECT * FROM Tips WHERE EmployeeID == {EmployeeID}";
+        string query = $"SELECT * FROM Tip WHERE EmployeeID == {EmployeeID}";
         SQLiteDataReader reader = Manager.ExecuteQuery(query);
         decimal amount;
         DateTime date;
         List<(decimal, DateTime)> tipList = new List<(decimal, DateTime)>();
         while (reader.Read())
         {
-            amount = reader.GetInt32(0);
-            date = reader.GetDateTime(1);
+            amount = reader.GetInt32(2);
+            date = reader.GetDateTime(3);
             tipList.Append((amount, date));
         }
 
@@ -48,6 +49,9 @@ public class Employee
     public void AddTip(decimal amount, DateTime date)
     {
         //resp = save(EmployeeID, amount, Date.today())
+
+        string query = $"INSERT INTO Tip (Amount TipDate EmployeeID) VALUES(\'{amount.ToString()}\', \'{date.ToString()}\', \'{EmployeeID}\')";
+        SQLiteDataReader reader = Manager.ExecuteQuery(query);
 
     }
 

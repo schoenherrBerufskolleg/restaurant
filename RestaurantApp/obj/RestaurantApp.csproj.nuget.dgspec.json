@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj": {}
+    "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\RestaurantApp\\RestaurantApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj": {
+    "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\RestaurantApp\\RestaurantApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj",
+        "projectUniqueName": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\RestaurantApp\\RestaurantApp.csproj",
         "projectName": "RestaurantApp",
-        "projectPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\RestaurantApp.csproj",
+        "projectPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\RestaurantApp\\RestaurantApp.csproj",
         "packagesPath": "C:\\Users\\Megaport\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\login\\RestaurantApp\\obj\\",
+        "outputPath": "C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\RestaurantApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Users\\Megaport\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
