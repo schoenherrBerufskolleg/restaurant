@@ -9,8 +9,9 @@ namespace RestaurantApp
 {
      class DatabaseManager
     {
-        readonly string databasePath = "Data Source=C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\Sql\\Restaurant";
+        //readonly string databasePath = "Data Source=C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\Sql\\Restaurant";
         //readonly string databasePath = "Data Source=H:\\repo\\restaurant\\fromGit\\Sql\\Restaurant";
+        readonly string databasePath = "Data Source=C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\restaurant\\Sql\\Restaurant";
         SQLiteConnection conn;
         /**
          * Connects to the database of the given databasePath

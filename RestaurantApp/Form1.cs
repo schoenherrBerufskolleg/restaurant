@@ -153,7 +153,7 @@ namespace WinFormsApp1
     {
 
         DatabaseManager manager = new DatabaseManager();
-        public Form1()
+        public Form1(Employee user)
         {
             InitializeComponent();
             Tabelle tipsTable = new Tabelle(this.TipsTable);

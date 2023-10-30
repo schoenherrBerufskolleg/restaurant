@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using RestaurantApp;
 using System.Data.SQLite;
-using System.Data;
 
 public class Employee
 {

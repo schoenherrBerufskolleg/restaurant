@@ -19,6 +19,8 @@ namespace RestaurantApp
         public Form2()
         {
             manager.Connect();
+            //string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Ben\', \'Schönherr\', \'Tricksero\', \'test\', \'Waiter\')";
+            //manager.ExecuteCommand(command);
             InitializeComponent();
         }
 
