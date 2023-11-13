@@ -26,44 +26,80 @@ public class Employee
         this.Username = Username;
         this.Role = Role;
         this.Manager = new DatabaseManager();
+
     }
 
     public List<(decimal, DateTime)> GetTips()
     {
-        Manager.Connect();
         string query = $"SELECT * FROM Tip WHERE EmployeeID == {EmployeeID}";
+        this.Manager.Connect();
         SQLiteDataReader reader = Manager.ExecuteQuery(query);
         decimal amount;
         DateTime date;
-        List<(decimal, DateTime)> tipList = new List<(decimal, DateTime)>();
+        List<(decimal, DateTime)> tipList = new List<(decimal, DateTime)> { };
         while (reader.Read())
         {
             amount = reader.GetInt32(2);
             date = reader.GetDateTime(3);
-            tipList.Append((amount, date));
+            tipList.Add((amount, date));
         }
-        Manager.Disconnect();
+        reader.Close();
+        this.Manager.Disconnect();
         return tipList;
     }
 
     public void AddTip(decimal amount, DateTime date)
     {
         //resp = save(EmployeeID, amount, Date.today())
-        Manager.Connect();
-        string query = $"INSERT INTO Tip (Amount TipDate EmployeeID) VALUES(\'{amount.ToString()}\', \'{date.ToString()}\', \'{EmployeeID}\')";
-        SQLiteDataReader reader = Manager.ExecuteQuery(query);
-        Manager.Disconnect();
+        string sqlFormattedDate = date.ToString("yyyy-MM-dd");
+        this.Manager.Connect();
+        string query = $"INSERT INTO Tip (Amount, TipDate, EmployeeID) VALUES({amount}, \'{sqlFormattedDate}\', {EmployeeID})";
+        int reader = Manager.ExecuteCommand(query);
+        this.Manager.Disconnect();
+
     }
 
     public List<(int, DateTime)> GetTurnover(DateTime date)
     {
+        string sqlFormattedDate = date.ToString("yyyy-MM-dd");
+        string orderInfoQuery = $"SELECT * FROM OrderInfo WHERE EmployeeID == {EmployeeID} AND OrderDate == {sqlFormattedDate}";
+        int OrderInfoID = 0;
+        string OrderItemQuery = $"SELECT * FROM OrderItem WHERE OrderID == {OrderInfoID}";
+        int ItemID = 0;
+        string MenuItemQuery = $"SELECT * FROM MenuItem WHERE ItemID == {ItemID}";
         // query paid orders by date
         return new List<(int, DateTime)>();
     }
+    public List<(decimal, DateTime)> GetUnpaidOrder(int tableNumber)
+    {
+        this.Manager.Connect();
+        string query = $"SELECT * FROM OrderInfo WHERE TableNumber == {tableNumber} AND Status == \'open\'";
+        SQLiteDataReader orderInfoReader = Manager.ExecuteQuery(query);
+        int OrderId = orderInfoReader.GetInt32(0);
+        string orderQuery = $"SELECT * FROM OderItem WHERE OrderId == {OrderId}";
+        SQLiteDataReader orderItemReader = Manager.ExecuteQuery(query);
+        decimal amount;
+        DateTime date;
+        List<(decimal, DateTime)> tipList = new List<(decimal, DateTime)> { };
+        //while (reader.Read())
+        //{
+        //    amount = reader.GetInt32(2);
+        //    date = reader.GetDateTime(3);
+        //    tipList.Add((amount, date))
+        //reader.Close();;
+        //}
+        //this.Manager.Disconnect();
+        return tipList;
+        //private Order GetUnpaidOrder()
+        //{
+        //// query for unpaid oders by tablenumber
+        //return new List[Order()];
+        //}
 
-    //public Orders GetOrders()
-    //{
-    //// query for orders status unpaid by employeeid
-    //return new Orders();
-    //}
+        //public Orders GetOrders()
+        //{
+        //// query for orders status unpaid by employeeid
+        //return new Orders();
+        //}
+    }
 }
