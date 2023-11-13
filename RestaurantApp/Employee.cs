@@ -26,37 +26,33 @@ public class Employee
         this.Username = Username;
         this.Role = Role;
         this.Manager = new DatabaseManager();
-        
     }
 
     public List<(decimal, DateTime)> GetTips()
     {
-        string query = $"SELECT * FROM Tip WHERE EmployeeID == {EmployeeID}"; 
-        this.Manager.Connect();
+        Manager.Connect();
+        string query = $"SELECT * FROM Tip WHERE EmployeeID == {EmployeeID}";
         SQLiteDataReader reader = Manager.ExecuteQuery(query);
         decimal amount;
         DateTime date;
-        List<(decimal, DateTime)> tipList = new List<(decimal, DateTime)> { };
+        List<(decimal, DateTime)> tipList = new List<(decimal, DateTime)>();
         while (reader.Read())
         {
             amount = reader.GetInt32(2);
             date = reader.GetDateTime(3);
-            tipList.Add((amount, date));
+            tipList.Append((amount, date));
         }
-        reader.Close();
-        this.Manager.Disconnect();
+        Manager.Disconnect();
         return tipList;
     }
 
     public void AddTip(decimal amount, DateTime date)
     {
         //resp = save(EmployeeID, amount, Date.today())
-        string sqlFormattedDate = date.ToString("yyyy-MM-dd");
-        this.Manager.Connect();
-        string query = $"INSERT INTO Tip (Amount, TipDate, EmployeeID) VALUES({amount}, \'{sqlFormattedDate}\', {EmployeeID})";
-        int reader = Manager.ExecuteCommand(query);
-        this.Manager.Disconnect();
-
+        Manager.Connect();
+        string query = $"INSERT INTO Tip (Amount TipDate EmployeeID) VALUES(\'{amount.ToString()}\', \'{date.ToString()}\', \'{EmployeeID}\')";
+        SQLiteDataReader reader = Manager.ExecuteQuery(query);
+        Manager.Disconnect();
     }
 
     public List<(int, DateTime)> GetTurnover(DateTime date)

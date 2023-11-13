@@ -208,4 +208,6 @@ C:\Users\Megaport\Documents\Schule\Projekt\testmain\RestaurantApp\obj\Debug\net7
 C:\Users\Megaport\Documents\Schule\Projekt\testmain\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.pdb
 C:\Users\Megaport\Documents\Schule\Projekt\testmain\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.genruntimeconfig.cache
 C:\Users\Megaport\Documents\Schule\Projekt\testmain\RestaurantApp\obj\Debug\net7.0-windows\ref\RestaurantApp.dll
-H:\repo\GitHub\restaurant\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.Form2.resources
+C:\Users\MBösert\Desktop\projekt\restaurant-main\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.Form2.resources
+C:\Users\MBösert\Desktop\projekt\restaurant-main\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.Login.resources
+C:\Users\MBösert\Desktop\projekt\restaurant-main\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.TableAssignment.resources

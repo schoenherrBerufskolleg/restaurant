@@ -18,7 +18,6 @@ namespace RestaurantApp
         Employee currentUser;
         public Login()
         {
-            manager.Connect();
             //string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Ben\', \'Schönherr\', \'Tricksero\', \'test\', \'Waiter\')";
             //manager.ExecuteCommand(command);
             InitializeComponent();
@@ -61,6 +60,7 @@ namespace RestaurantApp
 
         private Boolean login(string username, string password)
         {
+            manager.Connect();
             string query = "SELECT Username, Password, EmployeeID, Firstname, Lastname, Role FROM EMPLOYEE WHERE Username = \'"+ username + "\' AND Password = \'" + password + "\'";
             SQLiteDataReader result = manager.ExecuteQuery(query);
             while (result.Read())
@@ -74,10 +74,19 @@ namespace RestaurantApp
                 if (username == resultUsername && password == resultPassword)
                 {
                     currentUser = new Employee(resultID, resultFirstName, resultLastName, resultUsername, resultRole);
+                    result.Close();
+                    manager.Disconnect();
                     return true;
                 }
-                else return false;
+                else
+                {
+                    result.Close();
+                    manager.Disconnect();
+                    return false;
+                }
             }
+            result.Close();
+            manager.Disconnect();
             return false;
         }
     }
