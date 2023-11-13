@@ -18,7 +18,7 @@ namespace RestaurantApp
         Employee currentUser;
         public Form2()
         {
-            manager.Connect();
+            
             //string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Ben\', \'Schönherr\', \'Tricksero\', \'test\', \'Waiter\')";
             //manager.ExecuteCommand(command);
             InitializeComponent();
@@ -43,10 +43,11 @@ namespace RestaurantApp
         {
             string username = UsernameTextBox.Text;
             string password = PasswordTextBox.Text;
-
+            
             Boolean loginSuccess = login(username, password);
             if(loginSuccess)
             {
+                
                 MessageBox.Show("Your login has succeeded", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Form1 TableApplicationForm = new Form1(currentUser);
                 TableApplicationForm.Show();
@@ -62,7 +63,9 @@ namespace RestaurantApp
         private Boolean login(string username, string password)
         {
             string query = "SELECT Username, Password, EmployeeID, Firstname, Lastname, Role FROM EMPLOYEE WHERE Username = \'"+ username + "\' AND Password = \'" + password + "\'";
+            manager.Connect();
             SQLiteDataReader result = manager.ExecuteQuery(query);
+            
             while (result.Read())
             {
                 string resultUsername = result.GetString(0);
@@ -74,10 +77,20 @@ namespace RestaurantApp
                 if (username == resultUsername && password == resultPassword)
                 {
                     currentUser = new Employee(resultID, resultFirstName, resultLastName, resultUsername, resultRole);
+                    result.Close();
+                    manager.Disconnect();
                     return true;
                 }
-                else return false;
+                
+                else
+                {
+                    result.Close();
+                    manager.Disconnect();
+                    return false;
+                }
             }
+            result.Close();
+            manager.Disconnect();
             return false;
         }
     }

@@ -152,20 +152,21 @@ namespace WinFormsApp1
     public partial class Form1 : Form
     {
         public Employee user;
-        DatabaseManager manager = new DatabaseManager();
+        //DatabaseManager manager = new DatabaseManager();
         public Form1(Employee user)
         {
             this.user = user;
             InitializeComponent();
+            this.username_label.Text = user.Username;
             List<(decimal, DateTime)> old_tips = user.GetTips();
             Tabelle tipsTable = new Tabelle(this.TipsTable);
             tipsTable.initTable();
-            foreach((decimal, DateTime) old_tip in old_tips)
+            foreach ((decimal, DateTime) old_tip in old_tips)
             {
                 tipsTable.addTipRow(old_tip.Item1, old_tip.Item2);
                 //DateTime date = DateTime.Now;
                 //tipsTable.addTipRow(0, date);
-            }
+            };
             //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
             //panel.MaximumSize = new Size(700, 300);
             //panel.AutoScroll = false;
@@ -190,7 +191,7 @@ namespace WinFormsApp1
             panel.Controls.Add(new Label() { Text = "888888888888" }, 1, panel.RowCount - 1);
             panel.Controls.Add(new Label() { Text = "xxxxxxx@gmail.com" }, 2, panel.RowCount - 1);
 
-            manager.Connect();
+            //manager.Connect();
             //string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Maik\', \'B�sert\', \'Nova Mane\', \'test123\', \'Waiter\')";
         }
 
