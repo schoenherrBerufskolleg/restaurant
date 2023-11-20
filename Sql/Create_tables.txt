@@ -12,7 +12,6 @@ CREATE TABLE Employee (
 CREATE TABLE MenuItem (
     ItemID INTEGER PRIMARY KEY AUTOINCREMENT,
     ItemName VARCHAR(100) NOT NULL,
-    Description TEXT,
     Price DECIMAL(10, 2) NOT NULL
 );
 
@@ -21,7 +20,7 @@ CREATE TABLE TableAssignment (
     AssignmentID INTEGER PRIMARY KEY AUTOINCREMENT,
     EmployeeID INTEGER NOT NULL,
     TableNumber INTEGER NOT NULL,
-    AssignmentDate DATE,
+    AssignmentDate DATE, -- aus sql entfernen
     FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
 );
 
@@ -36,7 +35,7 @@ CREATE TABLE TableInfo (
 CREATE TABLE OrderInfo (
     OrderID INTEGER PRIMARY KEY AUTOINCREMENT,
     TableNumber INTEGER NOT NULL,
-    EmployeeID INTEGER NOT NULL,
+    EmployeeID INTEGER NOT NULL, -- aus sql entfernen
     OrderDate DATETIME NOT NULL,
     Status VARCHAR(20) NOT NULL,  -- OrderInfo status (e.g., open, closed)
     FOREIGN KEY (TableNumber) REFERENCES TableInfo(TableNumber),
