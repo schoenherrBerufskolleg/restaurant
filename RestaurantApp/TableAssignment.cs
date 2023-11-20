@@ -1,128 +1,93 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using RestaurantApp;
+using System.Data.SQLite;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
+using System.Security.Cryptography.Xml;
 
-namespace RestaurantApp
+public class TableAssignment
 {
+    public int AssignmentID { get; set; }
+    public int EmployeeID { get; set; }
+    public int TableNumber { get; set; }
+    private DatabaseManager Manager { get; set; }
 
-    public partial class TableAssignment : Form
+    public TableAssignment(int AssignmentID,  int EmployeeID, int TableNumber,)
     {
-        private class NameWithId
-        {
-            public string name;
-            public int id;
-            public NameWithId(string name, int id)
-            {
-                this.name = name; 
-                this.id = id;
-            }
+        this.EmployeeID = EmployeeID;
+        this.AssignmentID = AssignmentID;
+        this.TableNumber = TableNumber;
+        this.Manager = new DatabaseManager();
+    }
 
-            public override string ToString()
-            {
-                return this.name;
-            }
-        }
-        int tableNumber = 0;
-        List<Employee> employees = new List<Employee>();
-        DatabaseManager databaseManager = new DatabaseManager();
-        Employee assignedEmployee;
-        public TableAssignment(int tableNumber)
-        {
-            this.tableNumber = tableNumber;
-            InitializeComponent();
-            getEmployees();
-            getAssignment();
-        }
-        /**
-         * Assigns the selected employee to the current table
-         */
-        private void AssignButton_Click(object sender, EventArgs e)
-        {
-            if (this.EmployeeListBox.SelectedItem != null) {
-                NameWithId selectedEmployee = (NameWithId)this.EmployeeListBox.SelectedItem;
-                Employee newAssign = employees.FirstOrDefault(employee => employee.EmployeeID == selectedEmployee.id);
-                string command = "UPDATE TableAssignment SET EmployeeID = " + selectedEmployee.id + " WHERE TableNumber = " + this.tableNumber;
-                databaseManager.Connect();
-                if (databaseManager.ExecuteCommand(command) > 0)
-                {
-                    getAssignment();
+    public List<(decimal, DateTime)> GetUnpaidOrder(SQLiteConnection conn, int tableNumber)
+    {
+        this.Manager.Connect();
+        string query = $"SELECT * FROM OrderInfo WHERE TableNumber == {tableNumber} AND Status == \'open\'";
+        SQLiteDataReader orderInfoReader = Manager.ExecuteQuery(query);
+        int OrderId = orderInfoReader.GetInt32(0);
+        string orderQuery = $"SELECT * FROM OderItem WHERE OrderId == {OrderId}";
+        SQLiteDataReader orderItemReader = Manager.ExecuteQuery(query);
+        decimal amount;
+        DateTime date;
+        List<(decimal, DateTime)> tipList = new List<(decimal, DateTime)> { };
+        //while (reader.Read())
+        //{
+        //    amount = reader.GetInt32(2);
+        //    date = reader.GetDateTime(3);
+        //    tipList.Add((amount, date))
+        //reader.Close();;
+        //}
+        //this.Manager.Disconnect();
+        return tipList;
+    }
 
-                } else
-                {
-                    MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                databaseManager.Disconnect();
-            } else
-            {
-                MessageBox.Show("Please select an Employee to assign first!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-           
-        }
-        /**
-         * (Temporary) Method that fetches all the Employees from the Database
-         */
-        private void getEmployees()
-        {
-            databaseManager.Connect();
-            string query = "SELECT EmployeeId, FirstName, LastName, Username, Role FROM Employee";
-            SQLiteDataReader reader = databaseManager.ExecuteQuery(query);
-            while (reader.Read())
-            {
-                int id = reader.GetInt32(0);
-                string firstName = reader.GetString(1);
-                string lastName = reader.GetString(2);
-                string username = reader.GetString(3);
-                string role = reader.GetString(4);
-                employees.Add(new Employee(id, firstName, lastName, username, role));
-            }
-            reader.Close();
-            databaseManager.Disconnect();
-        }
-        /**
-         * Fetches the assignment of the current table number from the database
-         */
-        private void getAssignment()
-        {
-            if (this.tableNumber != 0)
-            {
-                databaseManager.Connect();
-                string query = "SELECT EmployeeId FROM TableAssignment WHERE TableNumber = " + tableNumber;
-                SQLiteDataReader reader = databaseManager.ExecuteQuery(query);
-                while (reader.Read())
-                {
-                    int id = (int)reader.GetInt32(0);
-                    this.assignedEmployee = employees.FirstOrDefault(employee => employee.EmployeeID == id);
-                }
-                reader.Close();
-                databaseManager.Disconnect();
-                updateView();
-            }
-        }
-        /**
-         * Updates the view with the new values
-         */
-        private void updateView()
-        {
-            if (this.assignedEmployee != null)
-            {
-                this.AssignedEmployee.Text = this.assignedEmployee.FirstName + " " + this.assignedEmployee.LastName;
-            }
-            if (this.employees.Count > 0 && this.EmployeeListBox.Items.Count == 0)
-            {
-                foreach (Employee x in this.employees)
-                {
-                    NameWithId name = new NameWithId(x.FirstName + " " + x.LastName, x.EmployeeID);
-                    this.EmployeeListBox.Items.Add(name);
-                }
+    public string getTableInfo() {
+        string query = $"Select * from TableInfo WHERE TableNumber == {TableNumber}";
+        return "";
+    }
+    public void changeTable() {
+        string query = $"Select * from OrderInfo WHERE TableNumber == {TableNumber} AND Status == \'open\'";
+        return;
+    }
+    public void createInvoice() {
+        string orderInfoQuery = $"Select * from OrderInfo WHERE TableNumber == {TableNumber} AND Status == \'open\'";
+        string orderItemQuery = $"Select * from OrderItem";
+        int ItemID = 0;
+        string menuItemQuery = $"Select * from MenuItem WHERE ItemID == {ItemID}";
+        decimal TotalAmount = 0;
+        decimal PaidAmount = 0;
+        int OrderID = 0;
+        DateTime date = DateTime.Now;
+        string sqlFormattedDate = date.ToString("yyyy-MM-dd");
+        string createInvoiceQuery = $"INSERT INTO Invoice (OrderID, TotalAmount, PaidAmount, InvoiceDate) VALUES({OrderID}, {TotalAmount}, {PaidAmount}, \'{sqlFormattedDate}\')";
+        return;
+    }
+    public void removeOrders() {
+        string query = $"Delete from OrderInfo WHERE TableNumber == {TableNumber} AND State == \'open\'";
 
-            }
+    }
+    public void PayInvoice(decimal paid) {
+        string orderInfoQuery = $"Select * from OrderInfo WHERE TableNumber == {TableNumber}";
+        int OrderID = 0;
+        string invoiceQuery = $"Select * from Invoice WHERE OrderID == {OrderID}";
+        decimal currentlyPaid = 0;
+        decimal totalAmount = 0;
+
+        bool fully_paid = false;
+        if (currentlyPaid + totalAmount == totalAmount) {
+            string updateQuery = $"Update OrderID SET PaidAmount = {paid} WHERE OrderID == {OrderID}"; 
+            fully_paid = true;
         }
+    }
+    public void ChangeEmployee(int new_id) {
+        string updateAssignmentQuery = $"Update TableAssignment Set EmployeeID WHERE TableNumber = {TableNumber}";
+        return;
     }
 }
