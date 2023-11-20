@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,13 +21,51 @@ namespace RestaurantApp
             public int id;
             public NameWithId(string name, int id)
             {
-                this.name = name; 
+                this.name = name;
                 this.id = id;
             }
 
             public override string ToString()
             {
                 return this.name;
+            }
+        }
+
+        private class MenuItem
+        {
+            public int itemId;
+            public string name;
+            public decimal price;
+
+            public MenuItem(int itemId, string itemName, decimal price)
+            {
+                this.itemId = itemId;
+                this.name = itemName;
+                this.price = price;
+            }
+            public override string ToString()
+            {
+                return this.name;
+            }
+        }
+
+        private class OrderInfo
+        {
+            public int orderId;
+            public int tableNumber;
+            public DateTime orderDate;
+            public string status;
+
+            public OrderInfo(int orderId, DateTime orderDate, string status)
+            {
+                this.orderId = orderId;
+                this.orderDate = orderDate;
+                this.status = status;
+            }
+
+            public override string ToString()
+            {
+                return "Order " + this.orderId + " " + this.orderDate;
             }
         }
         int tableNumber = 0;
@@ -45,7 +84,8 @@ namespace RestaurantApp
          */
         private void AssignButton_Click(object sender, EventArgs e)
         {
-            if (this.EmployeeListBox.SelectedItem != null) {
+            if (this.EmployeeListBox.SelectedItem != null)
+            {
                 NameWithId selectedEmployee = (NameWithId)this.EmployeeListBox.SelectedItem;
                 Employee newAssign = employees.FirstOrDefault(employee => employee.EmployeeID == selectedEmployee.id);
                 string command = "UPDATE TableAssignment SET EmployeeID = " + selectedEmployee.id + " WHERE TableNumber = " + this.tableNumber;
@@ -54,16 +94,18 @@ namespace RestaurantApp
                 {
                     getAssignment();
 
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 databaseManager.Disconnect();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Please select an Employee to assign first!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
         }
         /**
          * (Temporary) Method that fetches all the Employees from the Database
@@ -113,6 +155,7 @@ namespace RestaurantApp
             if (this.assignedEmployee != null)
             {
                 this.AssignedEmployee.Text = this.assignedEmployee.FirstName + " " + this.assignedEmployee.LastName;
+                this.showOrderMenu();
             }
             if (this.employees.Count > 0 && this.EmployeeListBox.Items.Count == 0)
             {
@@ -123,6 +166,59 @@ namespace RestaurantApp
                 }
 
             }
+        }
+
+        private void showOrderMenu()
+        {
+            this.OrderMenu.Show();
+            this.fetchMenuItems();
+            this.fetchActiveOrders();
+        }
+
+        private void fetchMenuItems()
+        {
+            databaseManager.Connect();
+            string query = "SELECT * FROM MenuItem";
+            SQLiteDataReader reader = databaseManager.ExecuteQuery(query);
+            while (reader.Read())
+            {
+                this.MenuListBox.Items.Add(new MenuItem(reader.GetInt32(0), reader.GetString(1) + " " + reader.GetDecimal(2) + "€", reader.GetDecimal(2)));
+            }
+            reader.Close();
+            databaseManager.Disconnect();
+        }
+
+        private void fetchActiveOrders()
+        {
+            databaseManager.Connect();
+            string query = "SELECT * FROM OrderInfo WHERE TableNumber = " + this.tableNumber;
+            SQLiteDataReader reader = databaseManager.ExecuteQuery(query);
+            while (reader.Read())
+            {
+                this.OrderInfoListBox.Items.Add(new OrderInfo(reader.GetInt32(0), reader.GetDateTime(1), reader.GetString(2)));
+            }
+            reader.Close();
+            databaseManager.Disconnect();
+        }
+
+        private void OrderButton_Click(object sender, EventArgs e)
+        {
+            if (this.MenuListBox.SelectedItem != null)
+            {
+                OrderInfo orderInfo;
+                MenuItem menuItem;
+                if (this.OrderInfoListBox.SelectedItem != null)
+                {
+                    orderInfo = (OrderInfo)this.OrderInfoListBox.SelectedItem;
+                    menuItem = (MenuItem)this.MenuListBox.SelectedItem;
+                    string query = "INSERT INTO OrderItem (OrderId, ItemId, SpecialInstructions) VALUES (" + orderInfo.orderId +", " + orderItem.itemId + ", " + orderItem.annotation
+                }
+            } else
+            {
+                MessageBox.Show("Please select an Item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+            
         }
     }
 }
