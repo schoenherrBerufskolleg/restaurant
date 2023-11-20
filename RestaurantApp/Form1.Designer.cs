@@ -30,7 +30,6 @@
         {
             tabControl1 = new TabControl();
             Tableview = new TabPage();
-            label7 = new Label();
             label5 = new Label();
             AssignedToOthers = new TableLayoutPanel();
             label2 = new Label();
@@ -46,7 +45,6 @@
             Turnover = new TabPage();
             label6 = new Label();
             tableLayoutPanel5 = new TableLayoutPanel();
-            username_label = new Label();
             tabControl1.SuspendLayout();
             Tableview.SuspendLayout();
             Tipsview.SuspendLayout();
@@ -58,15 +56,14 @@
             tabControl1.Controls.Add(Tableview);
             tabControl1.Controls.Add(Tipsview);
             tabControl1.Controls.Add(Turnover);
-            tabControl1.Location = new Point(0, 38);
+            tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(801, 411);
+            tabControl1.Size = new Size(801, 449);
             tabControl1.TabIndex = 0;
             // 
             // Tableview
             // 
-            Tableview.Controls.Add(label7);
             Tableview.Controls.Add(label5);
             Tableview.Controls.Add(AssignedToOthers);
             Tableview.Controls.Add(label2);
@@ -76,19 +73,10 @@
             Tableview.Location = new Point(4, 24);
             Tableview.Name = "Tableview";
             Tableview.Padding = new Padding(3);
-            Tableview.Size = new Size(793, 383);
+            Tableview.Size = new Size(793, 421);
             Tableview.TabIndex = 0;
             Tableview.Text = "Tableview";
             Tableview.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(746, -18);
-            label7.Name = "label7";
-            label7.Size = new Size(38, 15);
-            label7.TabIndex = 6;
-            label7.Text = "label7";
             // 
             // label5
             // 
@@ -156,6 +144,7 @@
             AssignedToYou.Size = new Size(690, 91);
             AssignedToYou.TabIndex = 0;
             AssignedToYou.Paint += AssignedToYou_Paint;
+            AssignedToYou.Dock = DockStyle.Fill;
             // 
             // Tipsview
             // 
@@ -167,7 +156,7 @@
             Tipsview.Location = new Point(4, 24);
             Tipsview.Name = "Tipsview";
             Tipsview.Padding = new Padding(3);
-            Tipsview.Size = new Size(793, 383);
+            Tipsview.Size = new Size(793, 421);
             Tipsview.TabIndex = 1;
             Tipsview.Text = "Tipsview";
             Tipsview.UseVisualStyleBackColor = true;
@@ -232,7 +221,7 @@
             Turnover.Controls.Add(tableLayoutPanel5);
             Turnover.Location = new Point(4, 24);
             Turnover.Name = "Turnover";
-            Turnover.Size = new Size(793, 383);
+            Turnover.Size = new Size(793, 421);
             Turnover.TabIndex = 2;
             Turnover.Text = "Turnover";
             Turnover.UseVisualStyleBackColor = true;
@@ -253,26 +242,17 @@
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel5.Location = new Point(26, 56);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
-            tableLayoutPanel5.RowCount = 1;
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel5.Size = new Size(743, 57);
+            tableLayoutPanel5.RowCount = 2;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.Size = new Size(743, 348);
             tableLayoutPanel5.TabIndex = 0;
-            // 
-            // username_label
-            // 
-            username_label.AutoSize = true;
-            username_label.Location = new Point(699, 9);
-            username_label.Name = "username_label";
-            username_label.Size = new Size(89, 15);
-            username_label.TabIndex = 1;
-            username_label.Text = "username-label";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(username_label);
             Controls.Add(tabControl1);
             Name = "Form1";
             Text = "Form1";
@@ -284,7 +264,6 @@
             Turnover.ResumeLayout(false);
             Turnover.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -306,7 +285,5 @@
         private Label label6;
         private TableLayoutPanel tableLayoutPanel5;
         private Button button1;
-        private Label label7;
-        private Label username_label;
     }
 }

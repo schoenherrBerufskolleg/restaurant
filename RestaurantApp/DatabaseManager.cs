@@ -9,8 +9,8 @@ namespace RestaurantApp
 {
      class DatabaseManager
     {
-        //readonly string databasePath = "Data Source=C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\Sql\\Restaurant";
-        readonly string databasePath = "Data Source=H:\\repo\\restaurant\\fromGit\\Sql\\Restaurant";
+        readonly string databasePath = "Data Source=C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\Sql\\Restaurant";
+        //readonly string databasePath = "Data Source=H:\\repo\\restaurant\\fromGit\\Sql\\Restaurant";
         //readonly string databasePath = "Data Source=C:\\Users\\Megaport\\Documents\\Schule\\Projekt\\testmain\\Sql\\Restaurant";
         SQLiteConnection conn;
         /**
@@ -35,8 +35,7 @@ namespace RestaurantApp
         {
             SQLiteCommand cmd = conn.CreateCommand();
             cmd.CommandText = command;
-            int result = cmd.ExecuteNonQuery();
-            return result;
+            return cmd.ExecuteNonQuery();
         }
         /**
          * Executes a given query on the connected database and returns
@@ -46,7 +45,7 @@ namespace RestaurantApp
         {
             SQLiteCommand cmd = conn.CreateCommand();
             cmd.CommandText = query;
-            SQLiteDataReader reader = cmd.ExecuteReader();
+            SQLiteDataReader reader = cmd.ExecuteReader();   
             return reader;
         }
     }
