@@ -210,3 +210,4 @@ C:\Users\Megaport\Documents\Schule\Projekt\testmain\RestaurantApp\obj\Debug\net7
 C:\Users\Megaport\Documents\Schule\Projekt\testmain\RestaurantApp\obj\Debug\net7.0-windows\ref\RestaurantApp.dll
 H:\repo\GitHub\restaurant\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.Form2.resources
 H:\repo\GitHub\restaurant\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.Login.resources
+H:\repo\GitHub\restaurant\RestaurantApp\obj\Debug\net7.0-windows\RestaurantApp.TableAssignment.resources
