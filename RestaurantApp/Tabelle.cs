@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using RestaurantApp;
 using System.Data.SQLite;
+using System.Data;
 
 public class Tabelle
 {
@@ -17,7 +18,7 @@ public class Tabelle
 	{
         this.Table = table;
 	}
-    public void initTable(List<string> headerList) {
+    public void initTable() {
         //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
         TableLayoutPanel panel = this.Table;
         panel.MaximumSize = new Size(700, 300);
@@ -25,11 +26,8 @@ public class Tabelle
         panel.AutoSize = true;
         panel.RowCount = 0;
         panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-        int headerNumber = 0;
-        foreach(string header in headerList) {
-            panel.Controls.Add(new Label() { Text = header }, headerNumber, 0);
-            headerNumber++;
-        }
+        panel.Controls.Add(new Label() { Text = "Amount" }, 0, 0);
+        panel.Controls.Add(new Label() { Text = "Date" }, 1, 0);
     }
 
     public void addTipRow(decimal amount, DateTime date) {
@@ -44,21 +42,6 @@ public class Tabelle
         panel.RowCount = panel.RowCount + 1;
         panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
         panel.Controls.Add(new Label() { Text = amount.ToString() }, 0, panel.RowCount);
-        panel.Controls.Add(new Label() { Text = date.ToString() }, 1, panel.RowCount);
-        Table = panel;
-    }
-    public void addTurnoverRow(decimal totalPrice, DateTime date) {
-        //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
-        TableLayoutPanel panel = this.Table;
-        int width = panel.Size.Width;
-        int height = panel.Size.Height;
-        if (height > 150 && !panel.AutoScroll)
-        {
-            panel.AutoScroll = true;
-        }
-        panel.RowCount = panel.RowCount + 1;
-        panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-        panel.Controls.Add(new Label() { Text = totalPrice.ToString() }, 0, panel.RowCount);
         panel.Controls.Add(new Label() { Text = date.ToString() }, 1, panel.RowCount);
         Table = panel;
     }

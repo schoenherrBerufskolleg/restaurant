@@ -53,10 +53,10 @@ namespace RestaurantApp
         {
             public int orderId;
             public int tableNumber;
-            public DateTime orderDate;
+            public string orderDate;
             public string status;
 
-            public OrderInfo(int orderId, DateTime orderDate, string status)
+            public OrderInfo(int orderId, string orderDate, string status)
             {
                 this.orderId = orderId;
                 this.orderDate = orderDate;
@@ -65,7 +65,29 @@ namespace RestaurantApp
 
             public override string ToString()
             {
-                return "Order " + this.orderId + " " + this.orderDate;
+                return "Order " + this.orderId + " " + this.orderDate + " " + this.status;
+            }
+        }
+
+        private class OrderItem
+        {
+            public int orderItemId;
+            public int orderId;
+            public int itemId;
+            public string name;
+            public string annotation;
+
+            public OrderItem(int orderItemId, int orderId, string annotation, string name)
+            {
+                this.orderItemId = orderItemId;
+                this.orderId = orderId;
+                this.name = name;
+                this.annotation = annotation;
+            }
+
+            public override string ToString()
+            {
+                return this.name;
             }
         }
         int tableNumber = 0;
@@ -190,35 +212,142 @@ namespace RestaurantApp
 
         private void fetchActiveOrders()
         {
+            this.OrderInfoListBox.Items.Clear();
             databaseManager.Connect();
-            string query = "SELECT * FROM OrderInfo WHERE TableNumber = " + this.tableNumber;
+            string query = "SELECT OrderId, OrderDate, Status FROM OrderInfo WHERE TableNumber = " + this.tableNumber;
             SQLiteDataReader reader = databaseManager.ExecuteQuery(query);
             while (reader.Read())
             {
-                this.OrderInfoListBox.Items.Add(new OrderInfo(reader.GetInt32(0), reader.GetDateTime(1), reader.GetString(2)));
+                this.OrderInfoListBox.Items.Add(new OrderInfo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
             }
             reader.Close();
             databaseManager.Disconnect();
+        }
+
+        private void fetchOrderedItems(int orderInfoId)
+        {
+            this.OrderedItemsListBox.Items.Clear();
+            decimal total = 0;
+            databaseManager.Connect();
+            string query = "SELECT OrderItemId, OrderId, SpecialInstructions, ItemName, Price FROM OrderItem a JOIN MenuItem b ON a.ItemID = b.ItemID WHERE OrderId = " + orderInfoId;
+            SQLiteDataReader reader = databaseManager.ExecuteQuery(query);
+            while (reader.Read())
+            {
+                this.OrderedItemsListBox.Items.Add(new OrderItem(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
+                total += reader.GetDecimal(4);
+            }
+            reader.Close();
+            databaseManager.Disconnect();
+            this.TotalLabel.Text = "Total: " + total.ToString();
         }
 
         private void OrderButton_Click(object sender, EventArgs e)
         {
             if (this.MenuListBox.SelectedItem != null)
             {
-                OrderInfo orderInfo;
-                MenuItem menuItem;
                 if (this.OrderInfoListBox.SelectedItem != null)
                 {
-                    orderInfo = (OrderInfo)this.OrderInfoListBox.SelectedItem;
-                    menuItem = (MenuItem)this.MenuListBox.SelectedItem;
-                    string query = "INSERT INTO OrderItem (OrderId, ItemId, SpecialInstructions) VALUES (" + orderInfo.orderId +", " + orderItem.itemId + ", " + orderItem.annotation
+                    this.addSelectedMenuItem();
                 }
-            } else
+                else
+                {
+                    databaseManager.Connect();
+                    string query = $"INSERT INTO OrderInfo (TableNumber, EmployeeID, OrderDate, Status) VALUES ({this.tableNumber}, {this.assignedEmployee.EmployeeID}, \'{DateTime.Now}\',\'open\')";
+                    int result = databaseManager.ExecuteCommand(query);
+                    if (result != 0)
+                    {
+                        string query1 = "SELECT OrderId, OrderDate, Status FROM OrderInfo WHERE TableNumber = " + this.tableNumber + " ORDER BY OrderDate DESC LIMIT 1";
+                        SQLiteDataReader reader = databaseManager.ExecuteQuery(query1);
+                        while (reader.Read())
+                        {
+                            this.OrderInfoListBox.Items.Add(new OrderInfo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                        }
+                        reader.Close();
+                        databaseManager.Disconnect();
+                        this.OrderInfoListBox.SelectedIndex = this.OrderInfoListBox.Items.Count - 1;
+                        this.addSelectedMenuItem();
+                    }
+                    else
+                    {
+                        MessageBox.Show("*Extremely loud buzzzer noise*");
+                        databaseManager.Disconnect();
+                    }
+                }
+            }
+            else
             {
                 MessageBox.Show("Please select an Item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
-            
+        }
+
+        private void OrderInfoListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OrderInfo orderinfo = (OrderInfo)this.OrderInfoListBox.SelectedItem;
+            fetchOrderedItems(orderinfo.orderId);
+            if (orderinfo.status == "closed")
+            {
+                PayButton.Enabled = false;
+                OrderButton.Enabled = false;
+            }
+            else
+            {
+                PayButton.Enabled = true;
+                OrderButton.Enabled = true;
+            }
+        }
+
+        private void addSelectedMenuItem()
+        {
+            OrderInfo orderinfo = (OrderInfo)this.OrderInfoListBox.SelectedItem;
+            MenuItem menuItem = (MenuItem)this.MenuListBox.SelectedItem;
+            databaseManager.Connect();
+            string query = "INSERT INTO OrderItem (OrderId, ItemId, SpecialInstructions) VALUES (" + orderinfo.orderId + ", " + menuItem.itemId + ", " + "\'" + this.AnnotationTextBox.Text + "\')";
+            int result = databaseManager.ExecuteCommand(query);
+            if (result != 0)
+            {
+                databaseManager.Disconnect();
+                fetchOrderedItems(orderinfo.orderId);
+
+            }
+            else
+            {
+                MessageBox.Show("*Extremely loud buzzzer noise*");
+                databaseManager.Disconnect();
+            }
+        }
+
+        private void PayButton_Click(object sender, EventArgs e)
+        {
+            OrderInfo orderinfo = (OrderInfo)this.OrderInfoListBox.SelectedItem;
+            databaseManager.Connect();
+            string query = "UPDATE OrderInfo set Status = \'closed\' WHERE OrderId = " + orderinfo.orderId;
+            int result = databaseManager.ExecuteCommand(query);
+            if (result != 0)
+            {
+                databaseManager.Disconnect();
+                fetchActiveOrders();
+            }
+            else
+            {
+                databaseManager.Disconnect();
+            }
+        }
+
+        private void ChangeTableButton_Click(object sender, EventArgs e)
+        {
+            OrderInfo orderinfo = (OrderInfo)this.OrderInfoListBox.SelectedItem;
+            databaseManager.Connect();
+            string query = "UPDATE OrderInfo set TableNumber = " + ChangeTableNumberBox.Value + " WHERE OrderId = " + orderinfo.orderId;
+            int result = databaseManager.ExecuteCommand(query);
+            if (result != 0)
+            {
+                databaseManager.Disconnect();
+                MessageBox.Show("Successfully Changed the Tablenumber of the selected Order to " + ChangeTableNumberBox.Value, "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                fetchActiveOrders();
+            } else
+            {
+                databaseManager.Disconnect();
+            }
         }
     }
 }

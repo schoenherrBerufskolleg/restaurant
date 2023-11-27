@@ -33,18 +33,20 @@
             AssignedEmployeeLabel = new Label();
             AssignedEmployee = new Label();
             OrderMenu = new GroupBox();
+            PayButton = new Button();
+            TotalLabel = new Label();
             OrderInfoListBox = new ListBox();
             label3 = new Label();
-            textBox1 = new TextBox();
+            AnnotationTextBox = new TextBox();
             label2 = new Label();
             label1 = new Label();
-            SaveButton = new Button();
-            CancelButton = new Button();
-            RemoveMenuItemButton = new Button();
             OrderedItemsListBox = new ListBox();
             OrderButton = new Button();
             MenuListBox = new ListBox();
+            ChangeTableButton = new Button();
+            ChangeTableNumberBox = new NumericUpDown();
             OrderMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ChangeTableNumberBox).BeginInit();
             SuspendLayout();
             // 
             // AssignButton
@@ -87,14 +89,15 @@
             // 
             // OrderMenu
             // 
+            OrderMenu.Controls.Add(ChangeTableNumberBox);
+            OrderMenu.Controls.Add(ChangeTableButton);
+            OrderMenu.Controls.Add(PayButton);
+            OrderMenu.Controls.Add(TotalLabel);
             OrderMenu.Controls.Add(OrderInfoListBox);
             OrderMenu.Controls.Add(label3);
-            OrderMenu.Controls.Add(textBox1);
+            OrderMenu.Controls.Add(AnnotationTextBox);
             OrderMenu.Controls.Add(label2);
             OrderMenu.Controls.Add(label1);
-            OrderMenu.Controls.Add(SaveButton);
-            OrderMenu.Controls.Add(CancelButton);
-            OrderMenu.Controls.Add(RemoveMenuItemButton);
             OrderMenu.Controls.Add(OrderedItemsListBox);
             OrderMenu.Controls.Add(OrderButton);
             OrderMenu.Controls.Add(MenuListBox);
@@ -105,6 +108,25 @@
             OrderMenu.TabStop = false;
             OrderMenu.Text = "Order Menu";
             // 
+            // PayButton
+            // 
+            PayButton.Location = new Point(6, 333);
+            PayButton.Name = "PayButton";
+            PayButton.Size = new Size(75, 23);
+            PayButton.TabIndex = 16;
+            PayButton.Text = "Paid";
+            PayButton.UseVisualStyleBackColor = true;
+            PayButton.Click += PayButton_Click;
+            // 
+            // TotalLabel
+            // 
+            TotalLabel.AutoSize = true;
+            TotalLabel.Location = new Point(369, 300);
+            TotalLabel.Name = "TotalLabel";
+            TotalLabel.Size = new Size(38, 15);
+            TotalLabel.TabIndex = 15;
+            TotalLabel.Text = "Total: ";
+            // 
             // OrderInfoListBox
             // 
             OrderInfoListBox.FormattingEnabled = true;
@@ -113,6 +135,7 @@
             OrderInfoListBox.Name = "OrderInfoListBox";
             OrderInfoListBox.Size = new Size(341, 79);
             OrderInfoListBox.TabIndex = 14;
+            OrderInfoListBox.SelectedIndexChanged += OrderInfoListBox_SelectedIndexChanged;
             // 
             // label3
             // 
@@ -123,12 +146,12 @@
             label3.TabIndex = 13;
             label3.Text = "Annotation:";
             // 
-            // textBox1
+            // AnnotationTextBox
             // 
-            textBox1.Location = new Point(163, 294);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(184, 23);
-            textBox1.TabIndex = 12;
+            AnnotationTextBox.Location = new Point(163, 294);
+            AnnotationTextBox.Name = "AnnotationTextBox";
+            AnnotationTextBox.Size = new Size(184, 23);
+            AnnotationTextBox.TabIndex = 12;
             // 
             // label2
             // 
@@ -147,33 +170,6 @@
             label1.Size = new Size(82, 15);
             label1.TabIndex = 10;
             label1.Text = "Ordered Items";
-            // 
-            // SaveButton
-            // 
-            SaveButton.Location = new Point(6, 327);
-            SaveButton.Name = "SaveButton";
-            SaveButton.Size = new Size(117, 23);
-            SaveButton.TabIndex = 9;
-            SaveButton.Text = "Save";
-            SaveButton.UseVisualStyleBackColor = true;
-            // 
-            // CancelButton
-            // 
-            CancelButton.Location = new Point(182, 327);
-            CancelButton.Name = "CancelButton";
-            CancelButton.Size = new Size(117, 23);
-            CancelButton.TabIndex = 8;
-            CancelButton.Text = "Cancel";
-            CancelButton.UseVisualStyleBackColor = true;
-            // 
-            // RemoveMenuItemButton
-            // 
-            RemoveMenuItemButton.Location = new Point(367, 292);
-            RemoveMenuItemButton.Name = "RemoveMenuItemButton";
-            RemoveMenuItemButton.Size = new Size(117, 23);
-            RemoveMenuItemButton.TabIndex = 7;
-            RemoveMenuItemButton.Text = "Remove";
-            RemoveMenuItemButton.UseVisualStyleBackColor = true;
             // 
             // OrderedItemsListBox
             // 
@@ -205,6 +201,26 @@
             MenuListBox.Size = new Size(341, 154);
             MenuListBox.TabIndex = 5;
             // 
+            // ChangeTableButton
+            // 
+            ChangeTableButton.Location = new Point(386, 61);
+            ChangeTableButton.Name = "ChangeTableButton";
+            ChangeTableButton.Size = new Size(98, 23);
+            ChangeTableButton.TabIndex = 17;
+            ChangeTableButton.Text = "Change Table";
+            ChangeTableButton.UseVisualStyleBackColor = true;
+            ChangeTableButton.Click += ChangeTableButton_Click;
+            // 
+            // ChangeTableNumberBox
+            // 
+            ChangeTableNumberBox.Location = new Point(386, 32);
+            ChangeTableNumberBox.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
+            ChangeTableNumberBox.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            ChangeTableNumberBox.Name = "ChangeTableNumberBox";
+            ChangeTableNumberBox.Size = new Size(98, 23);
+            ChangeTableNumberBox.TabIndex = 18;
+            ChangeTableNumberBox.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
             // TableAssignment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -219,6 +235,7 @@
             Text = "Form3";
             OrderMenu.ResumeLayout(false);
             OrderMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)ChangeTableNumberBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -230,16 +247,17 @@
         private Label AssignedEmployeeLabel;
         private Label AssignedEmployee;
         private GroupBox OrderMenu;
-        private Button SaveButton;
-        private Button CancelButton;
-        private Button RemoveMenuItemButton;
         private ListBox OrderedItemsListBox;
         private Button OrderButton;
         private ListBox MenuListBox;
         private Label label1;
         private Label label2;
         private Label label3;
-        private TextBox textBox1;
+        private TextBox AnnotationTextBox;
         private ListBox OrderInfoListBox;
+        private Label TotalLabel;
+        private Button PayButton;
+        private NumericUpDown ChangeTableNumberBox;
+        private Button ChangeTableButton;
     }
 }
