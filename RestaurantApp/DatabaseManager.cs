@@ -45,7 +45,7 @@ namespace RestaurantApp
         {
             SQLiteCommand cmd = conn.CreateCommand();
             cmd.CommandText = query;
-            SQLiteDataReader reader = cmd.ExecuteReader();   
+            SQLiteDataReader reader = cmd.ExecuteReader();
             return reader;
         }
     }
