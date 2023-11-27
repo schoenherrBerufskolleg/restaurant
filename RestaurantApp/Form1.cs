@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using RestaurantApp;
@@ -107,9 +108,6 @@ namespace WinFormsApp1
             // Add the tab control to the form
             Controls.Add(tabControl);
 
-
-            printDocument.PrintPage += new PrintPageEventHandler(PrintDocument_PrintPage);
-
             //panel.RowCount = 1;
             //panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
             //panel.Controls.Add(new Label() { Text = "Tablenumber" }, 0, 0);
@@ -149,6 +147,30 @@ namespace WinFormsApp1
             int tableNumber = Int32.Parse(clickedButton.Text);
             TableAssignment tableAssignmentForm = new TableAssignment(tableNumber);
             tableAssignmentForm.ShowDialog();
+        }
+
+        private void printButton_Click(object sender, EventArgs e)
+        {
+            string filePath = "H:\\repo\\GitHub\\restaurant\\pdf";
+
+            using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            {
+                using (Bitmap bitmap = new Bitmap(200, 100))
+                {
+                    using (Graphics graphics = Graphics.FromImage(bitmap))
+                    {
+                        using (Font font = new Font("Arial", 12))
+                        {
+                            graphics.Clear(Color.White);
+                            graphics.DrawString("Hello, this is a PDF created using C# built-in capabilities!", font, Brushes.Black, new PointF(10, 10));
+                        }
+                    }
+
+                    bitmap.Save(fs, ImageFormat.Png);
+                }
+            }
+
+            Console.WriteLine("PDF created successfully.");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -196,30 +218,5 @@ namespace WinFormsApp1
         }
 
 
-        //private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
-        //{
-            //// Define the area of the form to be printed (e.g., a panel or specific coordinates)
-            //Rectangle printArea = new Rectangle(50, 50, 200, 200); // Example coordinates and size
-
-            //// Create a bitmap to represent the portion of the form to be printed
-            //Bitmap bmp = new Bitmap(printArea.Width, printArea.Height);
-            //this.DrawToBitmap(bmp, printArea);
-
-            //// Draw the bitmap on the printing graphics object
-            //e.Graphics.DrawImage(bmp, new Point(100, 100)); // Example coordinates to print the image
-
-            //// Clean up resources
-            //bmp.Dispose();
-        //}
-        //private void PrintButton_Click(object sender, EventArgs e)
-        //{
-            //PrintDialog printDialog = new PrintDialog();
-            //printDialog.Document = printDocument;
-
-            //if (printDialog.ShowDialog() == DialogResult.OK)
-            //{
-                //printDocument.Print();
-            //}
-        //}
     }
 }
