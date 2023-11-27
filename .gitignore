@@ -21,3 +21,5 @@ RestaurantApp/obj/project.assets.json
 RestaurantApp/obj/project.nuget.cache
 RestaurantApp/obj/RestaurantApp.csproj.nuget.dgspec.json
 RestaurantApp/obj/RestaurantApp.csproj.nuget.g.props
+RestaurantApp/obj/**
+RestaurantApp/bin/**

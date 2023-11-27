@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using RestaurantApp;
@@ -12,146 +14,11 @@ using System.Data.SQLite;
 namespace WinFormsApp1
 {
 
-    //public class Employee
-    //{
-    //public int EmployeeID { get; set; }
-    //public string FirstName { get; set; }
-    //public string LastName { get; set; }
-    //public string Username { get; set; }
-    //public string Password { get; set; }
-    //public string Role { get; set; }
-
-    //public List<Dictionary<string, object>> GetTips()
-    //{
-    //// query tips by employeeids
-    //return new List<Dictionary<string, object>>();
-    //}
-
-    //public void AddTip(decimal amount)
-    //{
-    ////resp = save(EmployeeID, amount, Date.today())
-    //}
-
-    //public List<Dictionary<string, object>> GetTurnover(date)
-    //{
-    //// query paid orders by date
-    //return new List<Dictionary<string, object>>();
-    //}
-
-    //public Orders GetOrders()
-    //{
-    //// query for orders status unpaid by employeeid
-    //return new Orders();
-    //}
-    //}
-
-    //public class TableAssignment
-    //{
-    //public int AssignmentID { get; set; }
-    //public int EmployeeID { get; set; }
-    //public int TableNumber { get; set; }
-    //public DateTime AssignmentDate { get; set; }
-
-    //private Order GetUnpaidOrder()
-    //{
-    //// query for unpaid oders by tablenumber
-    //return new List[Order()];
-    //}
-
-    //public string GetTableInfo()
-    //{
-    //// query for unpaid oders by tablenumber
-    //return string.Empty;
-    //}
-
-    //public void ChangeTable(newTableNumber)
-    //{
-    //// get orders -> GetUnpaidOrder
-    //// update all oders with new tablenumber
-    //// query for tableinfo by number and set status to free
-    //}
-
-    //public void CreateInvoice(List[OrderItem], oderItems)
-    //{
-    //// update status of oder to "about to be paid or so"
-    //// get orderitem itemid and query for prices
-    //// create invoice element with zero paid and current date
-    //}
-
-    //public Order RemoveOrder()
-    //{
-
-    //// Implementation
-    //return new Order();
-    //}
-
-    //public void PayInvoice(decimal amount, int invoiceid)
-    //{
-    //// update paidamount on invoice
-    //// query for invoices with same orderid
-    //// if all paid query and update status of oder
-    //}
-
-    //public void ChangeEmployee(employeeid)
-    //{
-    //// update tableassignment 
-    //// Getunpaidorders update all orders
-    //}
-    //}
-
-    //public class Order
-    //{
-    //public int OrderID { get; set; }
-    //public int TableNumber { get; set; }
-    //public int EmployeeID { get; set; }
-    //public DateTime OrderDate { get; set; }
-    //public string Status { get; set; }
-
-    //public int GetCurrentTableAssignment()
-    //{
-    //// query for table by tablenumber
-
-    //// Implementation
-    //return 0;
-    //}
-
-    //public List<Order> GetAllOrderItems()
-    //{
-    //// query for all orders
-    //return new List<Order>();
-    //}
-
-    //public List<OrderItem> GetOrderItems()
-    //{
-    //// query for oder items by orderid
-    //return new List<OrderItem>();
-    //}
-    //}
-
-    //public class OrderItem
-    //{
-    //public int OrderItemID { get; set; }
-    //public int OrderID { get; set; }
-    //public int ItemID { get; set; }
-    //public string SpecialInstructions { get; set; }
-
-    //public string GetMenuInfo()
-    //{
-    //// query for Menu item and return info
-    //// Implementation
-    //return string.Empty;
-    //}
-
-    //public int GetPrice()
-    //{
-    //// query for Menu item and return only price
-    //// Implementation
-    //return 0;
-    //}
-    //}
     public partial class Form1 : Form
     {
         public Employee user;
+
+        private PrintDocument printDocument = new PrintDocument();
         DatabaseManager manager = new DatabaseManager();
         public Form1(Employee user)
         {
@@ -159,13 +26,33 @@ namespace WinFormsApp1
             InitializeComponent();
             List<(decimal, DateTime)> old_tips = user.GetTips();
             Tabelle tipsTable = new Tabelle(this.TipsTable);
-            tipsTable.initTable();
-            foreach((decimal, DateTime) old_tip in old_tips)
+            tipsTable.initTable(new List<string> { "Amount", "Date" });
+            foreach ((decimal, DateTime) old_tip in old_tips)
             {
                 tipsTable.addTipRow(old_tip.Item1, old_tip.Item2);
                 //DateTime date = DateTime.Now;
                 //tipsTable.addTipRow(0, date);
             }
+
+            int recentDays = 30;
+            DateTime today = DateTime.Today;
+            List<DateTime> dateList = new List<DateTime> { };
+            for (int day = 0; day < recentDays; day++)
+            {
+                DateTime recentDay = today.AddDays(-day);
+                dateList.Add(recentDay);
+            }
+
+            Tabelle turnoverTable = new Tabelle(this.TurnoverTable1);
+            turnoverTable.initTable(new List<string> { "Amount", "Date" });
+            decimal totalPrice;
+            foreach (DateTime day_date in dateList)
+            {
+                totalPrice = user.GetTurnover(day_date);
+                turnoverTable.addTurnoverRow(totalPrice, day_date);
+            }
+            Label numberLabel = this.TotalTurnoverNumberLabel;
+            numberLabel.Text = 0.ToString();
             //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
             //panel.MaximumSize = new Size(700, 300);
             //panel.AutoScroll = false;
@@ -220,22 +107,21 @@ namespace WinFormsApp1
 
             // Add the tab control to the form
             Controls.Add(tabControl);
-        
 
-        //panel.RowCount = 1;
-        //panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-        //panel.Controls.Add(new Label() { Text = "Tablenumber" }, 0, 0);
-        //panel.Controls.Add(new Label() { Text = "Contact No" }, 1, 0);
-        //panel.Controls.Add(new Label() { Text = "Email ID" }, 2, 0);
-        //this.AssignedToYou = panel;
+            //panel.RowCount = 1;
+            //panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            //panel.Controls.Add(new Label() { Text = "Tablenumber" }, 0, 0);
+            //panel.Controls.Add(new Label() { Text = "Contact No" }, 1, 0);
+            //panel.Controls.Add(new Label() { Text = "Email ID" }, 2, 0);
+            //this.AssignedToYou = panel;
 
-        //panel.RowCount = panel.RowCount + 1;
-        //panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-        //panel.Controls.Add(new Label() { Text = "Street, City, State" }, 0, panel.RowCount - 1);
-        //panel.Controls.Add(new Label() { Text = "888888888888" }, 1, panel.RowCount - 1);
-        //panel.Controls.Add(new Label() { Text = "xxxxxxx@gmail.com" }, 2, panel.RowCount - 1);
+            //panel.RowCount = panel.RowCount + 1;
+            //panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            //panel.Controls.Add(new Label() { Text = "Street, City, State" }, 0, panel.RowCount - 1);
+            //panel.Controls.Add(new Label() { Text = "888888888888" }, 1, panel.RowCount - 1);
+            //panel.Controls.Add(new Label() { Text = "xxxxxxx@gmail.com" }, 2, panel.RowCount - 1);
 
-        //manager.Connect();
+            //manager.Connect();
             //string command = "INSERT INTO Employee (FirstName, LastName, Username, password, Role) VALUES(\'Maik\', \'B�sert\', \'Nova Mane\', \'test123\', \'Waiter\')";
         }
 
@@ -258,9 +144,33 @@ namespace WinFormsApp1
 
             // Create and show the SelectNameForm when a button is clicked
             Button clickedButton = (Button)sender;
-            int tableNumber = Int32.Parse(clickedButton.Text); 
+            int tableNumber = Int32.Parse(clickedButton.Text);
             TableAssignment tableAssignmentForm = new TableAssignment(tableNumber);
             tableAssignmentForm.ShowDialog();
+        }
+
+        private void printButton_Click(object sender, EventArgs e)
+        {
+            string filePath = "H:\\repo\\GitHub\\restaurant\\pdf";
+
+            using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            {
+                using (Bitmap bitmap = new Bitmap(200, 100))
+                {
+                    using (Graphics graphics = Graphics.FromImage(bitmap))
+                    {
+                        using (Font font = new Font("Arial", 12))
+                        {
+                            graphics.Clear(Color.White);
+                            graphics.DrawString("Hello, this is a PDF created using C# built-in capabilities!", font, Brushes.Black, new PointF(10, 10));
+                        }
+                    }
+
+                    bitmap.Save(fs, ImageFormat.Png);
+                }
+            }
+
+            Console.WriteLine("PDF created successfully.");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -301,5 +211,12 @@ namespace WinFormsApp1
         {
 
         }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
