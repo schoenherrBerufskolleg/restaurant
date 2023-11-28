@@ -344,7 +344,8 @@ namespace RestaurantApp
                 databaseManager.Disconnect();
                 MessageBox.Show("Successfully Changed the Tablenumber of the selected Order to " + ChangeTableNumberBox.Value, "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 fetchActiveOrders();
-            } else
+            }
+            else
             {
                 databaseManager.Disconnect();
             }

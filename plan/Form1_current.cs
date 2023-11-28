@@ -35,7 +35,7 @@ namespace WinFormsApp1
             }
 
             int recentDays = 30;
-            DateTime today = DateTime.Today;
+            DateTime today = DateTime.Now;
             List<DateTime> dateList = new List<DateTime> { };
             for (int day = 0; day < recentDays; day++)
             {

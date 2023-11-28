@@ -35,7 +35,7 @@ namespace WinFormsApp1
             }
 
             int recentDays = 30;
-            DateTime today = DateTime.Today;
+            DateTime today = DateTime.Now;
             List<DateTime> dateList = new List<DateTime> { };
             for (int day = 0; day < recentDays; day++)
             {
@@ -149,9 +149,26 @@ namespace WinFormsApp1
             tableAssignmentForm.ShowDialog();
         }
 
-        private void printButton_Click(object sender, EventArgs e)
+        private void PrintBitmap(Bitmap bitmap)
         {
-            string filePath = "H:\\repo\\GitHub\\restaurant\\pdf";
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintPage += (sender, e) =>
+            {
+                e.Graphics.DrawImage(bitmap, 0, 0);
+            };
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDocument;
+
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                printDocument.Print();
+            }
+        }
+        
+        private void printButton_Click_1(object sender, EventArgs e)
+        {
+            string filePath = "C:\\Users\\Bschönherr\\Documents\\pdf";
 
             using (FileStream fs = new FileStream(filePath, FileMode.Create))
             {
@@ -166,7 +183,7 @@ namespace WinFormsApp1
                         }
                     }
 
-                    bitmap.Save(fs, ImageFormat.Png);
+                    PrintBitmap(bitmap);
                 }
             }
 
@@ -216,7 +233,6 @@ namespace WinFormsApp1
         {
 
         }
-
 
     }
 }

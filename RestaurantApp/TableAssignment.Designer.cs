@@ -33,6 +33,8 @@
             AssignedEmployeeLabel = new Label();
             AssignedEmployee = new Label();
             OrderMenu = new GroupBox();
+            ChangeTableNumberBox = new NumericUpDown();
+            ChangeTableButton = new Button();
             PayButton = new Button();
             TotalLabel = new Label();
             OrderInfoListBox = new ListBox();
@@ -43,8 +45,6 @@
             OrderedItemsListBox = new ListBox();
             OrderButton = new Button();
             MenuListBox = new ListBox();
-            ChangeTableButton = new Button();
-            ChangeTableNumberBox = new NumericUpDown();
             OrderMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ChangeTableNumberBox).BeginInit();
             SuspendLayout();
@@ -107,6 +107,26 @@
             OrderMenu.TabIndex = 4;
             OrderMenu.TabStop = false;
             OrderMenu.Text = "Order Menu";
+            // 
+            // ChangeTableNumberBox
+            // 
+            ChangeTableNumberBox.Location = new Point(386, 32);
+            ChangeTableNumberBox.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
+            ChangeTableNumberBox.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            ChangeTableNumberBox.Name = "ChangeTableNumberBox";
+            ChangeTableNumberBox.Size = new Size(98, 23);
+            ChangeTableNumberBox.TabIndex = 18;
+            ChangeTableNumberBox.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // ChangeTableButton
+            // 
+            ChangeTableButton.Location = new Point(386, 61);
+            ChangeTableButton.Name = "ChangeTableButton";
+            ChangeTableButton.Size = new Size(98, 23);
+            ChangeTableButton.TabIndex = 17;
+            ChangeTableButton.Text = "Change Table";
+            ChangeTableButton.UseVisualStyleBackColor = true;
+            ChangeTableButton.Click += ChangeTableButton_Click;
             // 
             // PayButton
             // 
@@ -200,26 +220,6 @@
             MenuListBox.Name = "MenuListBox";
             MenuListBox.Size = new Size(341, 154);
             MenuListBox.TabIndex = 5;
-            // 
-            // ChangeTableButton
-            // 
-            ChangeTableButton.Location = new Point(386, 61);
-            ChangeTableButton.Name = "ChangeTableButton";
-            ChangeTableButton.Size = new Size(98, 23);
-            ChangeTableButton.TabIndex = 17;
-            ChangeTableButton.Text = "Change Table";
-            ChangeTableButton.UseVisualStyleBackColor = true;
-            ChangeTableButton.Click += ChangeTableButton_Click;
-            // 
-            // ChangeTableNumberBox
-            // 
-            ChangeTableNumberBox.Location = new Point(386, 32);
-            ChangeTableNumberBox.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
-            ChangeTableNumberBox.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            ChangeTableNumberBox.Name = "ChangeTableNumberBox";
-            ChangeTableNumberBox.Size = new Size(98, 23);
-            ChangeTableNumberBox.TabIndex = 18;
-            ChangeTableNumberBox.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // TableAssignment
             // 
