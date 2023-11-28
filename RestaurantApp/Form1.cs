@@ -168,23 +168,18 @@ namespace WinFormsApp1
         
         private void printButton_Click_1(object sender, EventArgs e)
         {
-            string filePath = "C:\\Users\\Bschönherr\\Documents\\pdf";
-
-            using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            using (Bitmap bitmap = new Bitmap(200, 100))
             {
-                using (Bitmap bitmap = new Bitmap(200, 100))
+                using (Graphics graphics = Graphics.FromImage(bitmap))
                 {
-                    using (Graphics graphics = Graphics.FromImage(bitmap))
+                    using (Font font = new Font("Arial", 12))
                     {
-                        using (Font font = new Font("Arial", 12))
-                        {
-                            graphics.Clear(Color.White);
-                            graphics.DrawString("Hello, this is a PDF created using C# built-in capabilities!", font, Brushes.Black, new PointF(10, 10));
-                        }
+                        graphics.Clear(Color.White);
+                        graphics.DrawString("Hello, this is a PDF created using C# built-in capabilities!", font, Brushes.Black, new PointF(10, 10));
                     }
-
-                    PrintBitmap(bitmap);
                 }
+
+                PrintBitmap(bitmap);
             }
 
             Console.WriteLine("PDF created successfully.");
