@@ -24,6 +24,8 @@ namespace WinFormsApp1
         {
             this.user = user;
             InitializeComponent();
+            TotalTurnoverNumberLabel.Text = this.getTotalTurnover().ToString();
+            TurnoverSelf.Text = this.getPersonalTurnover().ToString();
             List<(decimal, DateTime)> old_tips = user.GetTips();
             Tabelle tipsTable = new Tabelle(this.TipsTable);
             tipsTable.initTable(new List<string> { "Amount", "Date" });
@@ -52,7 +54,6 @@ namespace WinFormsApp1
                 turnoverTable.addTurnoverRow(totalPrice, day_date);
             }
             Label numberLabel = this.TotalTurnoverNumberLabel;
-            numberLabel.Text = 0.ToString();
             //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
             //panel.MaximumSize = new Size(700, 300);
             //panel.AutoScroll = false;
@@ -217,6 +218,36 @@ namespace WinFormsApp1
 
         }
 
+        private decimal getTotalTurnover()
+        {
+            DateTime today = DateTime.Today;
+            decimal total = 0;
+            this.manager.Connect();
+            string query = "SELECT CASE WHEN SUM(c.Price) IS NULL THEN 0.0 ELSE SUM(c.Price) END FROM OrderInfo a JOIN OrderItem b ON a.OrderId = b.OrderId JOIN MenuItem c ON b.ItemId = c.ItemId WHERE SUBSTR(OrderDate, 1, 10) = \'" + today.ToString("dd.MM.yyyy") + "\'  AND Status = 'closed';";
 
+            SQLiteDataReader reader = this.manager.ExecuteQuery(query);
+            while (reader.Read())
+            {
+                total = reader.GetDecimal(0);
+            }
+            manager.Disconnect();
+            return total;
+        }
+
+        private decimal getPersonalTurnover()
+        {
+            DateTime today = DateTime.Today;
+            decimal total = 0;
+            this.manager.Connect();
+            string query = "SELECT CASE WHEN SUM(c.Price) IS NULL THEN 0.0 ELSE SUM(c.Price) END FROM OrderInfo a JOIN OrderItem b ON a.OrderId = b.OrderId JOIN MenuItem c ON b.ItemId = c.ItemId WHERE SUBSTR(OrderDate, 1, 10) = \'" + today.ToString("dd.MM.yyyy") + "\'  AND Status = 'closed' AND a.EmployeeId =" + this.user.EmployeeID;
+
+            SQLiteDataReader reader = this.manager.ExecuteQuery(query);
+            while (reader.Read())
+            {
+                total = reader.GetDecimal(0);
+            }
+            manager.Disconnect();
+            return total;
+        }
     }
 }
