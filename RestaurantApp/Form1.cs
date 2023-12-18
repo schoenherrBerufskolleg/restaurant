@@ -165,7 +165,7 @@ namespace WinFormsApp1
                 printDocument.Print();
             }
         }
-        
+
         private void printButton_Click_1(object sender, EventArgs e)
         {
             using (Bitmap bitmap = new Bitmap(200, 100))
