@@ -36,23 +36,8 @@ namespace WinFormsApp1
                 //tipsTable.addTipRow(0, date);
             }
 
-            int recentDays = 30;
             DateTime today = DateTime.Today;
-            List<DateTime> dateList = new List<DateTime> { };
-            for (int day = 0; day < recentDays; day++)
-            {
-                DateTime recentDay = today.AddDays(-day);
-                dateList.Add(recentDay);
-            }
 
-            Tabelle turnoverTable = new Tabelle(this.TurnoverTable1);
-            turnoverTable.initTable(new List<string> { "Amount", "Date" });
-            decimal totalPrice;
-            foreach (DateTime day_date in dateList)
-            {
-                totalPrice = user.GetTurnover(day_date);
-                turnoverTable.addTurnoverRow(totalPrice, day_date);
-            }
             Label numberLabel = this.TotalTurnoverNumberLabel;
             //TableLayoutPanel panel = (TableLayoutPanel)this.TipsTable;
             //panel.MaximumSize = new Size(700, 300);
