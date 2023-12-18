@@ -51,7 +51,7 @@ public class Employee
     public void AddTip(decimal amount, DateTime date)
     {
         //resp = save(EmployeeID, amount, Date.today())
-        string sqlFormattedDate = date.ToString("yyyy-MM-dd HH:MM:SS");
+        string sqlFormattedDate = date.ToString("yyyy-MM-dd hh:mm:ss");
         this.Manager.Connect();
         string query = $"INSERT INTO Tip (Amount, TipDate, EmployeeID) VALUES({amount}, \'{sqlFormattedDate}\', {EmployeeID})";
         int reader = Manager.ExecuteCommand(query);
@@ -59,14 +59,14 @@ public class Employee
 
     }
     public int DeleteTurnover(DateTime showdate) {
-        string sqlFormattedDate = showdate.ToString("yyyy-MM-dd HH:MM:SS");
+        string sqlFormattedDate = showdate.ToString("yyyy-MM-dd hh:mm:ss");
         string deleteTurnoverQuery = $"Delete from DailyTurnover WHERE EmployeeID == {EmployeeID} AND TurnoverDate == \'{sqlFormattedDate}\'";
         int deleteResponse = Manager.ExecuteCommand(deleteTurnoverQuery);
         return deleteResponse;
     }
 
     public decimal GetTurnoverByInvoice(DateTime date, List<int> orderInfoIDList = null) {
-        string sqlFormattedDate = date.ToString("yyyy-MM-dd HH:MM:SS");
+        string sqlFormattedDate = date.ToString("yyyy-MM-dd hh:mm:ss");
         string invoiceQuery;
         decimal turnover = 0;
         if (orderInfoIDList == null) {
@@ -110,7 +110,7 @@ public class Employee
     }
 
     public List<int> GetOrderInfo(DateTime date) {
-        string sqlFormattedDate = date.ToString("yyyy-MM-dd HH:MM:SS");
+        string sqlFormattedDate = date.ToString("yyyy-MM-dd hh:mm:ss");
         SQLiteDataReader reader;
         string orderInfoQuery = $"SELECT * FROM OrderInfo WHERE EmployeeID == {EmployeeID} AND OrderDate == \'{sqlFormattedDate}\'";
         reader = Manager.ExecuteQuery(orderInfoQuery);
@@ -132,7 +132,7 @@ public class Employee
         )
     {
         SQLiteDataReader reader;
-        string sqlFormattedDate = showdate.ToString("yyyy-MM-dd HH:MM:SS");
+        string sqlFormattedDate = showdate.ToString("yyyy-MM-dd hh:mm:ss");
         string orderTurnover;
         orderTurnover = $"SELECT * FROM DailyTurnover WHERE EmployeeID == {EmployeeID} AND TurnoverDate == \'{sqlFormattedDate}\'";
         Manager.Connect();
@@ -179,15 +179,15 @@ public class Employee
     
     public decimal TurnoverTodayForAll() {
         Manager.Connect();
-        decimal turnover = this.GetTurnoverByInvoice(DateTime.Today);
+        decimal turnover = this.GetTurnoverByInvoice(DateTime.Now);
         Manager.Disconnect();
         return turnover;
     }
 
     public decimal TurnoverToday() {
         Manager.Connect();
-        List<int> orderInfoIDList = GetOrderInfo(DateTime.Today);
-        decimal turnover = this.GetTurnoverByInvoice(DateTime.Today, orderInfoIDList);
+        List<int> orderInfoIDList = GetOrderInfo(DateTime.Now);
+        decimal turnover = this.GetTurnoverByInvoice(DateTime.Now, orderInfoIDList);
         Manager.Disconnect();
         return turnover;
     }
@@ -221,7 +221,7 @@ public class Employee
             totalPrice = totalPrice + p;
         }
 
-        string sqlFormattedDate = DateTime.Today.ToString("yyyy-MM-dd HH:MM:SS");
+        string sqlFormattedDate = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
         string createInvoiceQuery = $"INSERT INTO Invoice (TotalAmount, InvoiceDate, OrderId, PaidAmount) VALUES({totalPrice}, \'{sqlFormattedDate}\', {orderID}, 0)";
         int response = Manager.ExecuteCommand(createInvoiceQuery);
 
