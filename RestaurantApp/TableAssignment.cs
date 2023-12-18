@@ -31,44 +31,6 @@ namespace RestaurantApp
             }
         }
 
-        private class MenuItem
-        {
-            public int itemId;
-            public string name;
-            public decimal price;
-
-            public MenuItem(int itemId, string itemName, decimal price)
-            {
-                this.itemId = itemId;
-                this.name = itemName;
-                this.price = price;
-            }
-            public override string ToString()
-            {
-                return this.name;
-            }
-        }
-
-        private class OrderInfo
-        {
-            public int orderId;
-            public int tableNumber;
-            public string orderDate;
-            public string status;
-
-            public OrderInfo(int orderId, string orderDate, string status)
-            {
-                this.orderId = orderId;
-                this.orderDate = orderDate;
-                this.status = status;
-            }
-
-            public override string ToString()
-            {
-                return "Order " + this.orderId + " " + this.orderDate + " " + this.status;
-            }
-        }
-
         private class OrderItem
         {
             public int orderItemId;
@@ -210,7 +172,7 @@ namespace RestaurantApp
             databaseManager.Disconnect();
         }
 
-        private void fetchActiveOrders()
+        public void fetchActiveOrders()
         {
             this.OrderInfoListBox.Items.Clear();
             databaseManager.Connect();
@@ -318,19 +280,32 @@ namespace RestaurantApp
 
         private void PayButton_Click(object sender, EventArgs e)
         {
-            OrderInfo orderinfo = (OrderInfo)this.OrderInfoListBox.SelectedItem;
-            databaseManager.Connect();
-            string query = "UPDATE OrderInfo set Status = \'closed\' WHERE OrderId = " + orderinfo.orderId;
-            int result = databaseManager.ExecuteCommand(query);
-            if (result != 0)
+            //OrderInfo orderinfo = (OrderInfo)this.OrderInfoListBox.SelectedItem;
+            //databaseManager.Connect();
+            //string query = "UPDATE OrderInfo set Status = \'closed\' WHERE OrderId = " + orderinfo.orderId;
+            //int result = databaseManager.ExecuteCommand(query);
+            //if (result != 0)
+            //{
+            //    databaseManager.Disconnect();
+            //    fetchActiveOrders();
+            //}
+            //else
+            //{
+            //    databaseManager.Disconnect();
+            //}
+            List<OrderInfo> activeOrders = new List<OrderInfo>();
+            foreach (var x in this.OrderInfoListBox.Items)
             {
-                databaseManager.Disconnect();
-                fetchActiveOrders();
+                OrderInfo orderInfo = (OrderInfo)x;
+                if (orderInfo.status != "closed")
+                {
+                    activeOrders.Add((OrderInfo)x);
+
+                }
             }
-            else
-            {
-                databaseManager.Disconnect();
-            }
+
+            PaymentForm form = new PaymentForm(activeOrders, this.assignedEmployee, this);
+            form.Show();
         }
 
         private void ChangeTableButton_Click(object sender, EventArgs e)
@@ -344,8 +319,7 @@ namespace RestaurantApp
                 databaseManager.Disconnect();
                 MessageBox.Show("Successfully Changed the Tablenumber of the selected Order to " + ChangeTableNumberBox.Value, "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 fetchActiveOrders();
-            }
-            else
+            } else
             {
                 databaseManager.Disconnect();
             }

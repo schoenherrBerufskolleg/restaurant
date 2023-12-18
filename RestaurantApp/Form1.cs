@@ -35,7 +35,7 @@ namespace WinFormsApp1
             }
 
             int recentDays = 30;
-            DateTime today = DateTime.Now;
+            DateTime today = DateTime.Today;
             List<DateTime> dateList = new List<DateTime> { };
             for (int day = 0; day < recentDays; day++)
             {
@@ -149,37 +149,25 @@ namespace WinFormsApp1
             tableAssignmentForm.ShowDialog();
         }
 
-        private void PrintBitmap(Bitmap bitmap)
+        private void printButton_Click(object sender, EventArgs e)
         {
-            PrintDocument printDocument = new PrintDocument();
-            printDocument.PrintPage += (sender, e) =>
-            {
-                e.Graphics.DrawImage(bitmap, 0, 0);
-            };
+            string filePath = "H:\\repo\\GitHub\\restaurant\\pdf";
 
-            PrintDialog printDialog = new PrintDialog();
-            printDialog.Document = printDocument;
-
-            if (printDialog.ShowDialog() == DialogResult.OK)
+            using (FileStream fs = new FileStream(filePath, FileMode.Create))
             {
-                printDocument.Print();
-            }
-        }
-
-        private void printButton_Click_1(object sender, EventArgs e)
-        {
-            using (Bitmap bitmap = new Bitmap(200, 100))
-            {
-                using (Graphics graphics = Graphics.FromImage(bitmap))
+                using (Bitmap bitmap = new Bitmap(200, 100))
                 {
-                    using (Font font = new Font("Arial", 12))
+                    using (Graphics graphics = Graphics.FromImage(bitmap))
                     {
-                        graphics.Clear(Color.White);
-                        graphics.DrawString("Hello, this is a PDF created using C# built-in capabilities!", font, Brushes.Black, new PointF(10, 10));
+                        using (Font font = new Font("Arial", 12))
+                        {
+                            graphics.Clear(Color.White);
+                            graphics.DrawString("Hello, this is a PDF created using C# built-in capabilities!", font, Brushes.Black, new PointF(10, 10));
+                        }
                     }
-                }
 
-                PrintBitmap(bitmap);
+                    bitmap.Save(fs, ImageFormat.Png);
+                }
             }
 
             Console.WriteLine("PDF created successfully.");
@@ -228,6 +216,7 @@ namespace WinFormsApp1
         {
 
         }
+
 
     }
 }

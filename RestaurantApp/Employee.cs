@@ -53,7 +53,7 @@ public class Employee
         //resp = save(EmployeeID, amount, Date.today())
         string sqlFormattedDate = date.ToString("yyyy-MM-dd hh:mm:ss");
         this.Manager.Connect();
-        string query = $"INSERT INTO Tip (Amount, TipDate, EmployeeID) VALUES({amount}, \'{sqlFormattedDate}\', {EmployeeID})";
+        string query = $"INSERT INTO Tip (Amount, TipDate, EmployeeID) VALUES({amount.ToString().Replace(',','.')}, \'{sqlFormattedDate}\', {EmployeeID})";
         int reader = Manager.ExecuteCommand(query);
         this.Manager.Disconnect();
 
@@ -179,15 +179,15 @@ public class Employee
     
     public decimal TurnoverTodayForAll() {
         Manager.Connect();
-        decimal turnover = this.GetTurnoverByInvoice(DateTime.Now);
+        decimal turnover = this.GetTurnoverByInvoice(DateTime.Today);
         Manager.Disconnect();
         return turnover;
     }
 
     public decimal TurnoverToday() {
         Manager.Connect();
-        List<int> orderInfoIDList = GetOrderInfo(DateTime.Now);
-        decimal turnover = this.GetTurnoverByInvoice(DateTime.Now, orderInfoIDList);
+        List<int> orderInfoIDList = GetOrderInfo(DateTime.Today);
+        decimal turnover = this.GetTurnoverByInvoice(DateTime.Today, orderInfoIDList);
         Manager.Disconnect();
         return turnover;
     }
@@ -221,7 +221,7 @@ public class Employee
             totalPrice = totalPrice + p;
         }
 
-        string sqlFormattedDate = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+        string sqlFormattedDate = DateTime.Today.ToString("yyyy-MM-dd hh:mm:ss");
         string createInvoiceQuery = $"INSERT INTO Invoice (TotalAmount, InvoiceDate, OrderId, PaidAmount) VALUES({totalPrice}, \'{sqlFormattedDate}\', {orderID}, 0)";
         int response = Manager.ExecuteCommand(createInvoiceQuery);
 

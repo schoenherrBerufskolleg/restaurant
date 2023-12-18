@@ -1,35 +1,23 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
-using System.Reflection;
 
 namespace RestaurantApp
 {
      class DatabaseManager
     {
-        string databasePath;
-
+        readonly string databasePath = "Data Source=C:\\Users\\MBösert\\Desktop\\projekt\\restaurant-main\\Sql\\Restaurant";
+        //readonly string databasePath = "Data Source=H:\\repo\\restaurant\\fromGit\\Sql\\Restaurant";
+        //readonly string databasePath = "Data Source=H:\\repo\\GitHub\\restaurant\\Sql\\Restaurant";
         SQLiteConnection conn;
         /**
          * Connects to the database of the given databasePath
          */
         public void Connect()
         {
-            string assemblyPath = Assembly.GetExecutingAssembly().Location;
-            string dir = Path.GetDirectoryName(assemblyPath);
-
-            for (int i = 0; i < 4; i++)
-            {
-                dir = Directory.GetParent(dir).FullName;
-            }
-            Console.WriteLine("databasepath: " + dir);
-
-            databasePath = $"Data Source={Path.Combine(Path.Combine(dir, "Sql"), "Restaurant")}";
-
             conn = new SQLiteConnection(databasePath);
             conn.Open();
         }
