@@ -47,7 +47,6 @@
             label8 = new Label();
             TotalTurnoverNumberLabel = new Label();
             TotalTurnoverLabel = new Label();
-            TurnoverTable1 = new TableLayoutPanel();
             label6 = new Label();
             tabControl1.SuspendLayout();
             Tableview.SuspendLayout();
@@ -225,7 +224,6 @@
             Turnover.Controls.Add(label8);
             Turnover.Controls.Add(TotalTurnoverNumberLabel);
             Turnover.Controls.Add(TotalTurnoverLabel);
-            Turnover.Controls.Add(TurnoverTable1);
             Turnover.Controls.Add(label6);
             Turnover.Location = new Point(4, 24);
             Turnover.Name = "Turnover";
@@ -273,23 +271,6 @@
             TotalTurnoverLabel.Text = "Total Turnover: ";
             TotalTurnoverLabel.Click += label7_Click;
             // 
-            // TurnoverTable1
-            // 
-            TurnoverTable1.AutoScroll = true;
-            TurnoverTable1.AutoScrollMinSize = new Size(800, 150);
-            TurnoverTable1.AutoSize = true;
-            TurnoverTable1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            TurnoverTable1.ColumnCount = 2;
-            TurnoverTable1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            TurnoverTable1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            TurnoverTable1.Location = new Point(26, 67);
-            TurnoverTable1.MaximumSize = new Size(700, 150);
-            TurnoverTable1.Name = "TurnoverTable1";
-            TurnoverTable1.RowCount = 1;
-            TurnoverTable1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TurnoverTable1.Size = new Size(700, 50);
-            TurnoverTable1.TabIndex = 2;
-            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -336,7 +317,6 @@
         private Label label6;
         private TableLayoutPanel TurnoverTable;
         private Button button1;
-        private TableLayoutPanel TurnoverTable1;
         private Label TotalTurnoverLabel;
         private Label TotalTurnoverNumberLabel;
         private Label TurnoverSelf;
